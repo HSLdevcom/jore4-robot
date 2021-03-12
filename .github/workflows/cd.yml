@@ -1,6 +1,5 @@
 name: CI
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
   push:
     branches:
       - main
@@ -26,3 +25,6 @@ jobs:
         with:
           username: ${{ secrets.JORE4_DOCKERHUB_USER }}
           password: ${{ secrets.JORE4_DOCKERHUB_TOKEN }}
+
+      - name: Push image to DockerHub
+        run: docker push jore4-robot
