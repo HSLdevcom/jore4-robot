@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.2.2 (Python 3.8.5 on linux)" generated="20210310 14:12:03.877" rpa="false">
+<suite id="s1" name="Tests" source="/tests">
+<suite id="s1-s1" name="TestCases" source="/tests/TestCases">
+<suite id="s1-s1-s1" name="SmokeTests" source="/tests/TestCases/SmokeTests.robot">
+<kw name="setup browser" library="test_setup_and_teardownd_keywords" type="setup">
+<kw name="New Browser" library="Browser">
+<tags>
+<tag>BrowserControl</tag>
+<tag>Setter</tag>
+</tags>
+<doc>Create a new playwright Browser with specified options.
+See `Browser, Context and Page` for more information about Browser and related concepts.</doc>
+<arguments>
+<arg>${BROWSER}</arg>
+<arg>headless=true</arg>
+</arguments>
+<msg timestamp="20210310 14:12:04.688" level="INFO">{"browser": "chromium", "headless": true, "handleSIGINT": true, "handleSIGTERM": true, "handleSIGHUP": true, "timeout": 30000.0, "devtools": false, "slowMo": 0.0}</msg>
+<msg timestamp="20210310 14:12:04.875" level="INFO">Successfully created browser with options: {"browser":"chromium","headless":true,"handleSIGINT":true,"handleSIGTERM":true,"handleSIGHUP":true,"timeout":30000,"devtools":false,"slowMo":0}</msg>
+<status status="PASS" starttime="20210310 14:12:04.687" endtime="20210310 14:12:04.876"></status>
+</kw>
+<kw name="New Context" library="Browser">
+<tags>
+<tag>BrowserControl</tag>
+<tag>Setter</tag>
+</tags>
+<doc>Create a new BrowserContext with specified options.
+See `Browser, Context and Page` for more information about BrowserContext.</doc>
+<arguments>
+<arg>viewport={'width': 1920, 'height': 1080}</arg>
+</arguments>
+<msg timestamp="20210310 14:12:04.877" level="INFO">{"acceptDownloads": false, "ignoreHTTPSErrors": false, "bypassCSP": false, "viewport": {"width": 1920, "height": 1080}, "deviceScaleFactor": 1.0, "isMobile": false, "hasTouch": false, "javaScriptEnabled": true, "offline": false, "hideRfBrowser": false}</msg>
+<msg timestamp="20210310 14:12:04.897" level="INFO">Successfully created context with options: {"acceptDownloads":false,"ignoreHTTPSErrors":false,"bypassCSP":false,"viewport":{"width":1920,"height":1080},"deviceScaleFactor":1,"isMobile":false,"hasTouch":false,"javaScriptEnabled":true,"offline":false,"hideRfBrowser":false}</msg>
+<status status="PASS" starttime="20210310 14:12:04.876" endtime="20210310 14:12:04.897"></status>
+</kw>
+<kw name="New Page" library="Browser">
+<tags>
+<tag>BrowserControl</tag>
+<tag>Setter</tag>
+</tags>
+<doc>Open a new Page. A Page is the Playwright equivalent to a tab.
+See `Browser, Context and Page` for more information about Page concept.
+Returns a stable identifier for the created page.</doc>
+<arguments>
+<arg>${SUT_URL}</arg>
+</arguments>
+<msg timestamp="20210310 14:12:05.459" level="INFO">Successfully initialized new page object and opened url: https://test.jore.hsl.fi/</msg>
+<status status="PASS" starttime="20210310 14:12:04.897" endtime="20210310 14:12:05.460"></status>
+</kw>
+<status status="PASS" starttime="20210310 14:12:04.687" endtime="20210310 14:12:05.460"></status>
+</kw>
+<test id="s1-s1-s1-t1" name="Dummy Test">
+<kw name="Get Url" library="Browser">
+<tags>
+<tag>Assertion</tag>
+<tag>Getter</tag>
+<tag>PageContent</tag>
+</tags>
+<doc>Returns the current URL.</doc>
+<arguments>
+<arg>equal</arg>
+<arg>${SUT_URL}</arg>
+</arguments>
+<status status="PASS" starttime="20210310 14:12:05.476" endtime="20210310 14:12:05.481"></status>
+</kw>
+<tags>
+<tag>smoke</tag>
+</tags>
+<status status="PASS" starttime="20210310 14:12:05.460" endtime="20210310 14:12:05.481" critical="yes"></status>
+</test>
+<kw name="test teardown" library="test_setup_and_teardownd_keywords" type="teardown">
+<kw name="Delete All Cookies" library="Browser">
+<tags>
+<tag>BrowserControl</tag>
+<tag>Setter</tag>
+</tags>
+<doc>Deletes all cookies from the currently active browser context.</doc>
+<msg timestamp="20210310 14:12:05.496" level="INFO">All cookies deleted.</msg>
+<status status="PASS" starttime="20210310 14:12:05.489" endtime="20210310 14:12:05.496"></status>
+</kw>
+<kw name="Close Browser" library="Browser">
+<tags>
+<tag>BrowserControl</tag>
+<tag>Setter</tag>
+</tags>
+<doc>Closes the current browser. Activated browser is set to first active browser.
+Closes all context and pages belonging to this browser.
+See `Browser, Context and Page` for more information about Browser and related concepts.</doc>
+<msg timestamp="20210310 14:12:05.527" level="INFO">Closed browser</msg>
+<status status="PASS" starttime="20210310 14:12:05.496" endtime="20210310 14:12:05.528"></status>
+</kw>
+<status status="PASS" starttime="20210310 14:12:05.488" endtime="20210310 14:12:05.528"></status>
+</kw>
+<status status="PASS" starttime="20210310 14:12:03.901" endtime="20210310 14:12:05.528"></status>
+</suite>
+<status status="PASS" starttime="20210310 14:12:03.898" endtime="20210310 14:12:05.533"></status>
+</suite>
+<status status="PASS" starttime="20210310 14:12:03.878" endtime="20210310 14:12:05.534"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0">Critical Tests</stat>
+<stat pass="1" fail="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="1" fail="0">smoke</stat>
+</tag>
+<suite>
+<stat pass="1" fail="0" id="s1" name="Tests">Tests</stat>
+<stat pass="1" fail="0" id="s1-s1" name="TestCases">Tests.TestCases</stat>
+<stat pass="1" fail="0" id="s1-s1-s1" name="SmokeTests">Tests.TestCases.SmokeTests</stat>
+</suite>
+</statistics>
+<errors>
+<msg timestamp="20210310 14:12:04.103" level="WARN">Imported resource file '/tests/Resources/xpaths.robot' is empty.</msg>
+<msg timestamp="20210310 14:12:04.109" level="WARN">Imported resource file '/tests/Keywords/given.robot' is empty.</msg>
+<msg timestamp="20210310 14:12:04.111" level="WARN">Imported resource file '/tests/Keywords/when.robot' is empty.</msg>
+<msg timestamp="20210310 14:12:04.115" level="WARN">Imported resource file '/tests/Keywords/then.robot' is empty.</msg>
+</errors>
+</robot>
