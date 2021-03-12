@@ -1,4 +1,4 @@
-name: CI
+name: CD
 on:
   push:
     branches:
@@ -17,8 +17,11 @@ jobs:
       - name: checkout code
         uses: actions/checkout@v2
 
+      - name: Set local env variables
+        run: echo "ROBOT_IMAGE=hsldevcom/jore4-robot" >> $GITHUB_ENV
+
       - name: Build docker image
-        run: docker build -t jore4-robot .
+        run: docker build -t $ROBOT_IMAGE .
 
       - name: Login to DockerHub
         uses: docker/login-action@v1
@@ -27,4 +30,4 @@ jobs:
           password: ${{ secrets.JORE4_DOCKERHUB_TOKEN }}
 
       - name: Push image to DockerHub
-        run: docker push jore4-robot
+        run: docker push $ROBOT_IMAGE
