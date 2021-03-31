@@ -23,9 +23,6 @@ jobs:
       - name: Build docker image
         run: docker build -t $ROBOT_IMAGE .
 
-      - name: Run robot tests
-        run: $ROBOT_IMAGE bash -c "robot -v ENV:test -v BROWSER:chromium --outputdir /tests/results /tests"
-
       - name: Login to DockerHub
         uses: docker/login-action@v1
         with:
