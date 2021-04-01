@@ -31,6 +31,7 @@ jobs:
             docker run \
               -v ${PWD}/reports:/opt/robotframework/reports:Z \
               -v ${PWD}/tests:/opt/robotframework/tests:Z \
+              -v ENV:test -v BROWSER:chromium \
               --user $(id -u):$(id -g) \
               ppodgorsek/robot-framework:latest
         # upload test reports as a zip file
