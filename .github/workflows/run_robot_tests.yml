@@ -34,9 +34,9 @@ jobs:
 
           run: |
             docker run --rm \
-              --volume "$PWD/reports":/tests/results \
+              --volume "$PWD/reports":/tests/Results \
                 hsldevcom/jore4-robot:latest \
-                bash -c "robot -v ENV:test -v BROWSER:chromium --outputdir /tests/results /tests"
+                bash -c "robot -v ENV:test -v BROWSER:chromium --outputdir /tests/Results /tests"
         # upload test reports as a zip file
         - name: Upload reports
           uses: actions/upload-artifact@v1
