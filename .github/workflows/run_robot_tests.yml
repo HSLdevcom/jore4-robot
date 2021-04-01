@@ -37,7 +37,6 @@ jobs:
               --volume "$PWD/reports":/tests/results \
                 hsldevcom/jore4-robot:latest \
                 bash -c "robot -v ENV:test -v BROWSER:chromium --outputdir /tests/results /tests"
-              hsldevcom/jore4-robot:latest
         # upload test reports as a zip file
         - name: Upload reports
           uses: actions/upload-artifact@v1
