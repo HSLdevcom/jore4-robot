@@ -31,7 +31,6 @@ jobs:
           # it is required that GitHub repository contains folder "reports". Commit some file inside "reports" to create it
           # place tests in folder tests or change docker run command accordingly
           # configure -e ROBOT_OPTIONS according to yout tests, or remove it if no special configuration is needed
-
           run: |
             docker run --rm \
               --volume "$PWD/reports":/tests/Results \
