@@ -5,5 +5,7 @@ Suite Setup         setup browser
 Suite Teardown      test teardown
 
 *** Test Cases ***
-Dummy Test
+Leaflet Can Be Zoomed In Once
     Get Url   equal       ${SUT_URL}
+    Click    ${LEAFLET_ZOOM_IN}
+    Get Attribute    ${LEAFLET_ZOOM_IN}    class    contains    disabled

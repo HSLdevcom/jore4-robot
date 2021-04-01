@@ -1,4 +1,0 @@
-{"level":30,"time":"2021-03-10T14:12:04.637Z","pid":9,"hostname":"e5bc3f6d163a","msg":"Listening on 39951"}
-{"level":30,"time":"2021-03-10T14:12:04.891Z","pid":9,"hostname":"e5bc3f6d163a","msg":"Changed active context"}
-{"level":30,"time":"2021-03-10T14:12:04.958Z","pid":9,"hostname":"e5bc3f6d163a","msg":"Video path: undefined"}
-{"level":30,"time":"2021-03-10T14:12:04.960Z","pid":9,"hostname":"e5bc3f6d163a","msg":"Changed active page"}

@@ -1,0 +1,32 @@
+name: CD
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+  workflow_dispatch:
+
+jobs:
+  push_to_registry:
+    name: Build & Push docker image to dockerhub
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v2
+
+      - name: Set local env variables
+        run: echo "ROBOT_IMAGE=hsldevcom/jore4-robot" >> $GITHUB_ENV
+
+      - name: Build docker image
+        run: docker build -t $ROBOT_IMAGE .
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.JORE4_DOCKERHUB_USER }}
+          password: ${{ secrets.JORE4_DOCKERHUB_TOKEN }}
+
+      - name: Push image to DockerHub
+        run: docker push $ROBOT_IMAGE

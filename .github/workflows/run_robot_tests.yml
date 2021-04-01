@@ -2,7 +2,6 @@
 name: Run Robot Framework Tests
 on:
   push:
-    # runs tests for commits pushed to master
     branches:
       - master
       - actions
@@ -32,13 +31,11 @@ jobs:
           # it is required that GitHub repository contains folder "reports". Commit some file inside "reports" to create it
           # place tests in folder tests or change docker run command accordingly
           # configure -e ROBOT_OPTIONS according to yout tests, or remove it if no special configuration is needed
-          
           run: |
             docker run --rm \
-              --volume "$PWD/reports":/tests/results \
+              --volume "$PWD/reports":/tests/Results \
                 hsldevcom/jore4-robot:latest \
-                bash -c "robot -v ENV:test -v BROWSER:chromium --outputdir /tests/results /tests"
-              hsldevcom/jore4-robot:latest
+                bash -c "robot -v ENV:test -v BROWSER:chromium --outputdir /tests/Results /tests"
         # upload test reports as a zip file
         - name: Upload reports
           uses: actions/upload-artifact@v1
