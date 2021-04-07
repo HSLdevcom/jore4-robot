@@ -1,50 +1,47 @@
 # runs tests for push-events, for pull requests and using cron schedule:
 name: Run Robot Framework Tests
 on:
-  push:
-    branches:
-      - main
-      - report
-    # do not run tests if file README.md changes
-    paths-ignore:
-      - 'README.md'
-    # run tests for GitHub Pull requests. Test result is visible in the Pull Request page.
-  pull_request:
-    paths-ignore:
-      - 'README.md'
+  workflow_dispatch:
+
+    inputs:
+      env:
+        description: 'In which env you want to run the tests in'
+        default: test
+        required: true
+      browser:
+        description: 'Which browser you want to use'
+        default: chromium
+        required: true
+      tag:
+        description: 'Tag for tests to run. Use "*" to run all'
+        # Default value if no value is explicitly provided
+        default: smoke
+        # Input has to be provided for the workflow to run
+        required: true
 jobs:
     run_tests:
         runs-on: ubuntu-latest
         steps:
-        # checkout code from a repository
-        - uses: actions/checkout@v2
-        # create folder for test reports
         - name: Create folder for reports
           run: mkdir reports
-        # run Robot Framework tests inside Docker container
+
         - name: Run Robot Framework Tests
-          # container used here is ppodgorsek/robot-framework:latest
-          # see container documentation for usage: https://hub.docker.com/r/ppodgorsek/robot-framework/dockerfile
-          # it is required that GitHub repository contains folder "reports". Commit some file inside "reports" to create it
-          # place tests in folder tests or change docker run command accordingly
-          # configure -e ROBOT_OPTIONS according to yout tests, or remove it if no special configuration is needed
           run: |
-            docker run \
-              -v ${PWD}/reports:/opt/robotframework/reports:Z \
-              -v ${PWD}/tests:/opt/robotframework/tests:Z \
-              -v ENV:test -v BROWSER:chromium \
-              --user $(id -u):$(id -g) \
-              ppodgorsek/robot-framework:latest
+            docker run --rm \
+              --volume "$PWD/tests/Results":/tests/Results \
+                hsldevcom/jore4-robot:latest \
+                  bash -c "robot -v ENV:${{ github.event.inputs.env }} -v BROWSER:${{ github.event.inputs.browser }} --include ${{ github.event.inputs.tag }} --outputdir /tests/Results /tests"
+
         - name: Upload test results
           uses: actions/upload-artifact@v1
           if: always()
           with:
             name: reports
-            path: ${{ github.workspace }}/reports
-            
+            path: ${{ github.workspace }}/tests/Results
+
     generate_report:
         if: always()
-        needs: [run_tests] 
+        needs: [run_tests]
         runs-on: ubuntu-latest
         steps:
         - name: Download reports
