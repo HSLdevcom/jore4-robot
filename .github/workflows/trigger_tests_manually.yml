@@ -3,6 +3,21 @@ name: Run Robot Framework Tests
 on:
   workflow_dispatch:
 
+    inputs:
+      env:
+        description: 'In which env you want to run the tests in'
+        default: test
+        required: true
+      browser:
+        description: 'Which browser you want to use'
+        default: chromium
+        required: true
+      tag:
+        description: 'Tag for tests to run. Use "*" to run all'
+        # Default value if no value is explicitly provided
+        default: smoke
+        # Input has to be provided for the workflow to run
+        required: true
 jobs:
     run_tests:
         runs-on: ubuntu-latest
@@ -15,7 +30,7 @@ jobs:
             docker run --rm \
               --volume "$PWD/tests/Results":/tests/Results \
                 hsldevcom/jore4-robot:latest \
-                  bash -c "robot -v ENV:test -v BROWSER:chromium --outputdir /tests/Results /tests"
+                  bash -c "robot -v ENV:${{ github.event.inputs.env }} -v BROWSER:${{ github.event.inputs.browser }} --include ${{ github.event.inputs.tag }} --outputdir /tests/Results /tests"
 
         - name: Upload test results
           uses: actions/upload-artifact@v1
