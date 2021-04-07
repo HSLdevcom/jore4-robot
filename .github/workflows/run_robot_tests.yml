@@ -42,7 +42,7 @@ jobs:
             name: reports
             path: ${{ github.workspace }}/reports
             
-        generate_report:
+    generate_report:
         if: always()
         needs: [run_tests] 
         runs-on: ubuntu-latest
