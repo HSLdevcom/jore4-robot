@@ -20,7 +20,7 @@ jobs:
         - name: Create folder for reports
           run: mkdir reports
 
-        - name: Run Robot Framework Tests Manually
+        - name: Run Robot Framework Tests
           run: |
             docker run --rm \
               --volume "${{ github.workspace }}/reports":/tests/Results \
@@ -32,7 +32,7 @@ jobs:
           if: always()
           with:
             name: reports
-            path: ${{ github.workspace }}/tests/Results
+            path: ${{ github.workspace }}/reports
 
     generate_report:
         if: always()
