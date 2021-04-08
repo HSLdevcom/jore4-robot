@@ -24,9 +24,9 @@ jobs:
           run: |
             docker run --rm \
               --volume "${{ github.workspace }}/reports":/tests/Results \
-                --user $(id -u):$(id -g) \
                 hsldevcom/jore4-robot:latest \
-                  bash -c "robot -v ENV:test -v BROWSER:chromium --outputdir /tests/Results /tests"
+                  --user $(id -u):$(id -g) \
+                    bash -c "robot -v ENV:test -v BROWSER:chromium --outputdir /tests/Results /tests"
 
         - name: Upload test results
           uses: actions/upload-artifact@v1
