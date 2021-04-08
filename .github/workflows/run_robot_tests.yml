@@ -24,6 +24,7 @@ jobs:
           run: |
             docker run --rm \
               --volume "${{ github.workspace }}/reports":/tests/Results \
+                --user $(id -u):$(id -g) \
                 hsldevcom/jore4-robot:latest \
                   bash -c "robot -v ENV:test -v BROWSER:chromium --outputdir /tests/Results /tests"
 
