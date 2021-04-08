@@ -12,39 +12,31 @@ on:
   pull_request:
     paths-ignore:
       - 'README.md'
+
 jobs:
     run_tests:
         runs-on: ubuntu-latest
         steps:
-        # checkout code from a repository
-        - uses: actions/checkout@v2
-        # create folder for test reports
         - name: Create folder for reports
           run: mkdir reports
-        # run Robot Framework tests inside Docker container
-        - name: Run Robot Framework Tests
-          # container used here is ppodgorsek/robot-framework:latest
-          # see container documentation for usage: https://hub.docker.com/r/ppodgorsek/robot-framework/dockerfile
-          # it is required that GitHub repository contains folder "reports". Commit some file inside "reports" to create it
-          # place tests in folder tests or change docker run command accordingly
-          # configure -e ROBOT_OPTIONS according to yout tests, or remove it if no special configuration is needed
+
+        - name: Run Robot Framework Tests Manually
           run: |
-            docker run \
-              -v ${PWD}/reports:/opt/robotframework/reports:Z \
-              -v ${PWD}/tests:/opt/robotframework/tests:Z \
-              -v ENV:test -v BROWSER:chromium \
-              --user $(id -u):$(id -g) \
-              ppodgorsek/robot-framework:latest
+            docker run --rm \
+              --volume "${{ github.workspace }}/reports":/tests/Results \
+                hsldevcom/jore4-robot:latest \
+                  bash -c "robot -v ENV:test -v BROWSER:chromium --outputdir /tests/Results /tests"
+
         - name: Upload test results
           uses: actions/upload-artifact@v1
           if: always()
           with:
             name: reports
-            path: ${{ github.workspace }}/reports
-            
+            path: ${{ github.workspace }}/tests/Results
+
     generate_report:
         if: always()
-        needs: [run_tests] 
+        needs: [run_tests]
         runs-on: ubuntu-latest
         steps:
         - name: Download reports
