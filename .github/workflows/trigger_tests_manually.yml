@@ -28,7 +28,7 @@ jobs:
         - name: Run Robot Framework Tests Manually
           run: |
             docker run --rm \
-              --volume "${{ github.workspace }}/reports":/tests/Results \
+              --volume "${PWD}/reports":/tests/Results \
                 hsldevcom/jore4-robot:latest \
                   bash -c "robot -v ENV:${{ github.event.inputs.env }} -v BROWSER:${{ github.event.inputs.browser }} --include ${{ github.event.inputs.tag }} --outputdir /tests/Results /tests"
 
@@ -37,7 +37,7 @@ jobs:
           if: always()
           with:
             name: reports
-            path: ${{ github.workspace }}/tests/Results
+            path: ${{ github.workspace }}/reports
 
     generate_report:
         if: always()
