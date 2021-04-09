@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - report
     # do not run tests if file README.md changes
     paths-ignore:
       - 'README.md'
