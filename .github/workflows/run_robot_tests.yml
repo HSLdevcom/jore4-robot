@@ -18,23 +18,19 @@ jobs:
         runs-on: ubuntu-latest
         steps:
         - uses: actions/checkout@v2
-        - name: Create folder for reports
-          run: mkdir reports
         - name: Run Robot Framework Tests
           run: |
-            docker run \
-              -v ${PWD}/reports:/opt/robotframework/reports:Z \
-              -v ${PWD}/tests:/opt/robotframework/tests:Z \
-              -e ROBOT_OPTIONS="-v ENV:test -v BROWSER:chromium" \
-              --user $(id -u):$(id -g) \
-              ppodgorsek/robot-framework:latest
+            docker run --rm \
+              --volume "${PWD}/tests":/tests/ \
+                hsldevcom/jore4-robot:latest \
+                  bash -c "robot -v ENV:test -v BROWSER:chromium --include smoke --outputdir /tests/output /tests"
 
         - name: Upload test results
           uses: actions/upload-artifact@v1
           if: always()
           with:
             name: reports
-            path: ${{ github.workspace }}/reports
+            path: ${{ github.workspace }}/tests/output
 
     generate_report:
         if: always()

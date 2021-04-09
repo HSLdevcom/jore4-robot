@@ -1,5 +1,5 @@
 # runs tests for push-events, for pull requests and using cron schedule:
-name: Run Robot Framework Tests
+name: Run Robot Framework Tests Manually
 on:
   workflow_dispatch:
 
