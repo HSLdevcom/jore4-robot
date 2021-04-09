@@ -26,7 +26,7 @@ jobs:
         - name: Run Robot Framework Tests Manually
           run: |
             docker run --rm \
-              --user0:0 \
+              --user 0:0 \
                 --volume ${PWD}/tests:/tests:Z \
                     hsldevcom/jore4-robot:latest \
                       bash -c "robot -v ENV:${{ github.event.inputs.env }} -v BROWSER:${{ github.event.inputs.browser }} --include ${{ github.event.inputs.tag }} --outputdir /tests/output /tests"
