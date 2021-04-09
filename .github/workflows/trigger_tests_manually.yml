@@ -22,12 +22,11 @@ jobs:
     run_tests:
         runs-on: ubuntu-latest
         steps:
-        - name: Create folder for reports
-          run: mkdir reports
+        - uses: actions/checkout@v2
         - name: Run Robot Framework Tests Manually
           run: |
             docker run --rm \
-                --volume "${{ github.workspace }}/reports":/tests/output:Z \
+                --volume "${PWD}/tests:/tests:Z \
                     hsldevcom/jore4-robot:latest \
                       bash -c "robot -v ENV:${{ github.event.inputs.env }} -v BROWSER:${{ github.event.inputs.browser }} --include ${{ github.event.inputs.tag }} --outputdir /tests/output /tests"
         - name: Upload test results
@@ -35,7 +34,7 @@ jobs:
           if: always()
           with:
             name: reports
-            path: ${{ github.workspace }}/reports
+            path: ${{ github.workspace }}/tests/output
 
     generate_report:
         if: always()
