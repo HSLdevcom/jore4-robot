@@ -29,6 +29,7 @@ jobs:
           run: |
             docker run --rm \
                 --volume "${{ github.workspace }}/tests":/tests \
+                  --user pwuser:pwuser \
                     marketsquare/robotframework-browser:latest \
                       bash -c "robot -v ENV:${{ github.event.inputs.env }} -v BROWSER:${{ github.event.inputs.browser }} --include ${{ github.event.inputs.tag }} --outputdir /tests/output /tests"
         - name: Upload test results
