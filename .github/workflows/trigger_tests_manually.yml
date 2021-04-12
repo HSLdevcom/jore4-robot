@@ -22,12 +22,15 @@ jobs:
     run_tests:
         runs-on: ubuntu-latest
         steps:
+        - name: make folder for reports
+          run: mkdir reports
         - name: Run Robot Framework Tests Manually
           run: |
-            docker run --rm \
-              --volume ${{ github.workspace }}/reports:/tests/output \
-                hsldevcom/jore4-robot:latest \
-                  bash -c "robot -v ENV:${{ github.event.inputs.env }} -v BROWSER:${{ github.event.inputs.browser }} --include ${{ github.event.inputs.tag }} --outputdir /tests/output /tests"
+            docker run --name "robot-tests"\
+              hsldevcom/jore4-robot:latest \
+                bash -c "robot -v ENV:${{ github.event.inputs.env }} -v BROWSER:${{ github.event.inputs.browser }} --include ${{ github.event.inputs.tag }} --outputdir /tests/output /tests"
+        - name: docker copy
+          run: docker cp robot-tests:/tests/output ${{ github.workspace }}/reports
         - name: Upload test results
           uses: actions/upload-artifact@v1
           if: always()
