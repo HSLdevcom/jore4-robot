@@ -22,7 +22,6 @@ jobs:
     run_tests:
         runs-on: ubuntu-latest
         steps:
-        - uses: actions/checkout@v2
         - name: Run Robot Framework Tests Manually
           run: |
             docker run --rm \
