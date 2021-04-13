@@ -1,9 +1,10 @@
 # runs tests for push-events, for pull requests and using cron schedule:
-name: Run Robot Framework Tests
+name: Test Env Robot Run
 on:
   push:
     branches:
       - main
+      - report
     # do not run tests if file README.md changes
     paths-ignore:
       - 'README.md'
@@ -16,20 +17,21 @@ jobs:
     run_tests:
         runs-on: ubuntu-latest
         steps:
-        - uses: actions/checkout@v2
-        - name: Run Robot Framework Tests
+        - name: make folder for reports
+          run: mkdir reports
+        - name: Run Robot Framework Tests Manually
           run: |
-            docker run --rm \
-              --volume "${PWD}/tests":/tests/ \
-                hsldevcom/jore4-robot:latest \
-                  bash -c "robot -v ENV:test -v BROWSER:chromium --include smoke --outputdir /tests/output /tests"
-
+            docker run --name "robot-tests"\
+              hsldevcom/jore4-robot:latest \
+                bash -c "robot -v ENV:test -v BROWSER:chromium --outputdir /tests/output /tests"
+        - name: docker copy
+          run: docker cp robot-tests:/tests/output ${{ github.workspace }}/reports
         - name: Upload test results
           uses: actions/upload-artifact@v1
           if: always()
           with:
             name: reports
-            path: ${{ github.workspace }}/tests/output
+            path: ${{ github.workspace }}/reports
 
     generate_report:
         if: always()
@@ -44,13 +46,13 @@ jobs:
           run: |
             export OWNER="$(echo "${{ github.repository }}" | awk -F / '{print $1}' | sed -e "s/:refs//")"
             export REPO="$(echo "${{ github.repository }}" | awk -F / '{print $2}' | sed -e "s/:refs//")"
-            echo "::set-env name=REPOSITORY_OWNER::$OWNER"
-            echo "::set-env name=REPOSITORY_NAME::$REPO"
+            echo "REPOSITORY_OWNER=$OWNER" >> $GITHUB_ENV
+            echo "REPOSITORY_NAME=$REPO" >> $GITHUB_ENV
         - name: Send report to commit
           uses: joonvena/robotframework-reporter-action@v0.1
           env:
             GH_ACCESS_TOKEN: ${{ secrets.TOKEN }}
-            REPO_OWNER: ${{ env.REPOSITORY_OWNER }}
+            REPO_OWNER: ${{ $REPOSITORY_OWNER }}
             COMMIT_SHA: ${{ github.sha }}
-            REPOSITORY: ${{ env.REPOSITORY_NAME }}
+            REPOSITORY: ${{ $REPOSITORY_NAME }}
             REPORT_PATH: reports
