@@ -53,4 +53,4 @@ jobs:
             REPO_OWNER: $REPOSITORY_OWNER
             COMMIT_SHA: ${{ github.sha }}
             REPOSITORY: $REPOSITORY_NAME
-            REPORT_PATH: reports
+            REPORT_PATH: ${{ github.workspace }}/reports
