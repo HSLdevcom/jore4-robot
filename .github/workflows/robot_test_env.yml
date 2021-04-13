@@ -44,15 +44,13 @@ jobs:
             name: reports
         - name: Get Repository Owner & Name
           run: |
-            export OWNER="$(echo "${{ github.repository }}" | awk -F / '{print $1}' | sed -e "s/:refs//")"
-            export REPO="$(echo "${{ github.repository }}" | awk -F / '{print $2}' | sed -e "s/:refs//")"
-            echo "REPOSITORY_OWNER=$OWNER" >> $GITHUB_ENV
-            echo "REPOSITORY_NAME=$REPO" >> $GITHUB_ENV
+            echo "REPOSITORY_OWNER=$(echo '${{ github.repository }}' | awk -F '/' '{print $1}')" >> $GITHUB_ENV
+            echo "REPOSITORY_NAME=$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')" >> $GITHUB_ENV
         - name: Send report to commit
           uses: joonvena/robotframework-reporter-action@v0.1
           env:
             GH_ACCESS_TOKEN: ${{ secrets.TOKEN }}
-            REPO_OWNER: ${{ $REPOSITORY_OWNER }}
+            REPO_OWNER: $REPOSITORY_OWNER
             COMMIT_SHA: ${{ github.sha }}
-            REPOSITORY: ${{ $REPOSITORY_NAME }}
+            REPOSITORY: $REPOSITORY_NAME
             REPORT_PATH: reports
