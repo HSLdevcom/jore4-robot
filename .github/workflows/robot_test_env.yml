@@ -25,7 +25,7 @@ jobs:
               hsldevcom/jore4-robot:latest \
                 bash -c "robot -v ENV:test -v BROWSER:chromium --outputdir /tests/output /tests"
         - name: docker copy
-          run: docker cp robot-tests:/tests/output ${{ github.workspace }}/reports
+          run: docker cp robot-tests:/tests/output/. ${{ github.workspace }}/reports/
         - name: Upload test results
           uses: actions/upload-artifact@v1
           if: always()
@@ -45,4 +45,4 @@ jobs:
             REPO_OWNER: ${{ env.REPOSITORY_OWNER }}
             COMMIT_SHA: ${{ github.sha }}
             REPOSITORY: ${{ env.REPOSITORY_NAME }}
-            REPORT_PATH: ${{ github.workspace }}/reports/output
+            REPORT_PATH: ${{ github.workspace }}/reports
