@@ -1,10 +1,8 @@
-# runs tests for push-events, for pull requests and using cron schedule:
 name: Test Env Robot Run
 on:
   push:
     branches:
       - main
-      - report
     # do not run tests if file README.md changes
     paths-ignore:
       - 'README.md'
@@ -19,7 +17,7 @@ jobs:
         steps:
         - name: make folder for reports
           run: mkdir reports
-        - name: Run Robot Framework Tests Manually
+        - name: Robot Tests For Test Environment
           run: |
             docker run --name "robot-tests"\
               hsldevcom/jore4-robot:latest \
@@ -32,6 +30,7 @@ jobs:
           with:
             name: reports
             path: ${{ github.workspace }}/reports
+        # Commented out because couldn't get reporter-action to work
         # - name: Get Repository Owner & Name
         #   run: |
         #     echo "REPOSITORY_OWNER=$(echo '${{ github.repository }}' | awk -F '/' '{print $1}')" >> $GITHUB_ENV

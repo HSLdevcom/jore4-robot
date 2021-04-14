@@ -14,9 +14,7 @@ on:
         required: true
       tag:
         description: 'Tag for tests to run. Use "*" to run all'
-        # Default value if no value is explicitly provided
         default: smoke
-        # Input has to be provided for the workflow to run
         required: true
 jobs:
     run_tests:
