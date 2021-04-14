@@ -9,3 +9,9 @@ Leaflet Can Be Zoomed In Once
     Get Url   equal       ${SUT_URL}
     Click    ${LEAFLET_ZOOM_IN}
     Get Attribute    ${LEAFLET_ZOOM_IN}    class    contains    disabled
+
+Leaflet Can Be Zoomed In Twice
+    Get Url   equal       ${SUT_URL}
+    Click    ${LEAFLET_ZOOM_IN}
+    Click    ${LEAFLET_ZOOM_IN}
+    Get Attribute    ${LEAFLET_ZOOM_IN}    class    contains    disabled
