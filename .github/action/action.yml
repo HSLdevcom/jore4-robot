@@ -15,6 +15,7 @@ runs:
     # note that we don't checkout code in this job!
     - name: Setup e2e cluster with the remote script
       run: "curl https://raw.githubusercontent.com/HSLdevcom/jore4-flux/${{ inputs.GITHUB_REF_SLUG }}/setupcluster.sh | bash"
+      shell: bash
 
     - name: Verify that application is up and running
       run: |
@@ -23,8 +24,11 @@ runs:
           sleep 5
           echo $i
         done
+      shell: bash
+
     - name: Run Robot tests in started environment
-        run: |
-          docker run --name "robot-tests"\
-            hsldevcom/jore4-robot:latest \
-              bash -c "robot -v ENV:localhost -v BROWSER:chromium --outputdir /tests/output /tests"
+      run: |
+        docker run --name "robot-tests"\
+          hsldevcom/jore4-robot:latest \
+            bash -c "robot -v ENV:localhost -v BROWSER:chromium --outputdir /tests/output /tests"
+      shell: bash
