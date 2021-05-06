@@ -19,8 +19,14 @@ jobs:
   run_tests:
     runs-on: ubuntu-latest
     steps:
+      - name: Inject slug/short variables into env
+        uses: rlespinasse/github-slug-action@v3.x
+
       - name: new action
         uses: HSLdevcom/jore4-robot/.github/action@robot_action
+        with:
+          GITHUB_REF_SLUG: ${{ env.GITHUB_REF_SLUG }}
+
       - name: make folder for reports
         run: mkdir reports
       - name: Run Robot Framework Tests Manually

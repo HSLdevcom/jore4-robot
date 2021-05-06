@@ -1,6 +1,9 @@
 name: "E2E tests"
 description: "Builds test environment and runs e2e tests"
 inputs:
+  GITHUB_REF_SLUG:
+    description: ref_slug
+    required: true
   front_end_version:
     description: "version of ui to use"
     required: true
@@ -10,11 +13,8 @@ runs:
   using: "composite"
   steps:
     # note that we don't checkout code in this job!
-    - name: Inject slug/short variables into env
-      uses: rlespinasse/github-slug-action@v3.x
-
     - name: Setup e2e cluster with the remote script
-      run: "curl https://raw.githubusercontent.com/HSLdevcom/jore4-flux/${{ env.GITHUB_REF_SLUG }}/setupcluster.sh | bash"
+      run: "curl https://raw.githubusercontent.com/HSLdevcom/jore4-flux/${{ inputs.GITHUB_REF_SLUG }}/setupcluster.sh | bash"
 
     - name: Verify that application is up and running
       run: |
