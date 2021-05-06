@@ -22,10 +22,20 @@ jobs:
       - name: Inject slug/short variables into env
         uses: rlespinasse/github-slug-action@v3.x
 
-      - name: new action
-        uses: HSLdevcom/jore4-robot/.github/action@robot_action
-        with:
-          GITHUB_REF_SLUG: ${{ env.GITHUB_REF_SLUG }}
+      - name: Setup e2e cluster with the remote script
+      run: "curl https://raw.githubusercontent.com/HSLdevcom/jore4-flux/${{ inputs.GITHUB_REF_SLUG }}/setupcluster.sh | bash"
+
+      - name: Verify that application is up and running
+        run: |
+          for i in {1..20}; do
+            curl --fail http://localhost:8000 --output /dev/null --silent && break
+            sleep 5
+            echo $i
+          done
+      # - name: new action
+      #   uses: HSLdevcom/jore4-robot/.github/action@robot_action
+      #   with:
+      #     GITHUB_REF_SLUG: ${{ env.GITHUB_REF_SLUG }}
 
       - name: make folder for reports
         run: mkdir reports
