@@ -21,7 +21,7 @@ jobs:
       - name: make folder for reports
         run: mkdir reports
 
-      - name: new action
+      - name: run e2e smoke tests
         uses: HSLdevcom/jore4-robot/.github/action@robot_action
         with:
           test_env: ${{ github.event.inputs.env }}
