@@ -1,11 +1,10 @@
-# runs tests for push-events, for pull requests and using cron schedule:
 name: Run Robot Framework Tests Manually
 on:
   workflow_dispatch:
     inputs:
       env:
         description: "In which env you want to run the tests in"
-        default: test
+        default: localhost
         required: true
       browser:
         description: "Which browser you want to use"
@@ -16,20 +15,24 @@ on:
         default: smoke
         required: true
 jobs:
-  run_tests:
-    runs-on: ubuntu-latest
+  run_e2e_tests:
+    runs-on: ubuntu-20.04
     steps:
-      - name: new action
-        uses: HSLdevcom/jore4-robot/.github/actions/automatic-tests@robot_action
       - name: make folder for reports
         run: mkdir reports
-      - name: Run Robot Framework Tests Manually
-        run: |
-          docker run --name "robot-tests"\
-            hsldevcom/jore4-robot:latest \
-              bash -c "robot -v ENV:${{ github.event.inputs.env }} -v BROWSER:${{ github.event.inputs.browser }} --include ${{ github.event.inputs.tag }} --outputdir /tests/output /tests"
+
+      - name: run e2e smoke tests
+        id: tests
+        uses: HSLdevcom/jore4-robot/.github/action@main
+        with:
+          test_env: ${{ github.event.inputs.env }}
+          browser: ${{ github.event.inputs.browser }}
+          included_tag: ${{ github.event.inputs.tag }}
+
       - name: docker copy
+        if: always()
         run: docker cp robot-tests:/tests/output/. ${{ github.workspace }}/reports/
+
       - name: Upload test results
         uses: actions/upload-artifact@v1
         if: always()
