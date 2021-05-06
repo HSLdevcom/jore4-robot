@@ -22,7 +22,7 @@ jobs:
         uses: rlespinasse/github-slug-action@v3.x
 
       - name: Setup e2e cluster with the remote script
-        run: "curl https://raw.githubusercontent.com/HSLdevcom/jore4-flux/${{ inputs.GITHUB_REF_SLUG }}/setupcluster.sh | bash"
+        run: "curl https://raw.githubusercontent.com/HSLdevcom/jore4-flux/${{ env.GITHUB_REF_SLUG }}/setupcluster.sh | bash"
 
       - name: Verify that application is up and running
         run: |
