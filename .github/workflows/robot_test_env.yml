@@ -1,47 +1,32 @@
-name: Test Env Robot Run
+name: Run Robot Framework tests for test environment
 on:
   push:
     branches:
       - main
-    # do not run tests if file README.md changes
+      - robot_action
     paths-ignore:
-      - 'README.md'
-    # run tests for GitHub Pull requests. Test result is visible in the Pull Request page.
-  pull_request:
-    paths-ignore:
-      - 'README.md'
+      - "README.md"
 
 jobs:
-    run_tests:
-        runs-on: ubuntu-latest
-        steps:
-        - name: make folder for reports
-          run: mkdir reports
-        - name: Robot Tests For Test Environment
-          run: |
-            docker run --name "robot-tests"\
-              hsldevcom/jore4-robot:latest \
-                bash -c "robot -v ENV:test -v BROWSER:chromium --outputdir /tests/output /tests"
-        - name: docker copy
-          run: docker cp robot-tests:/tests/output/. ${{ github.workspace }}/reports/
-        - name: Upload test results
-          uses: actions/upload-artifact@v1
-          if: always()
-          with:
-            name: reports
-            path: ${{ github.workspace }}/reports
-        # Commented out because couldn't get reporter-action to work
-        # - name: Get Repository Owner & Name
-        #   run: |
-        #     echo "REPOSITORY_OWNER=$(echo '${{ github.repository }}' | awk -F '/' '{print $1}')" >> $GITHUB_ENV
-        #     echo "REPOSITORY_NAME=$(echo '${{ github.repository }}' | awk -F '/' '{print $2}')" >> $GITHUB_ENV
-        # - name: check reports folder
-        #   run: ls ${{ github.workspace }}/reports
-        # - name: Send report to commit
-        #   uses: joonvena/robotframework-reporter-action@v0.1
-        #   env:
-        #     GH_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        #     REPO_OWNER: ${{ env.REPOSITORY_OWNER }}
-        #     COMMIT_SHA: ${{ github.sha }}
-        #     REPOSITORY: ${{ env.REPOSITORY_NAME }}
-        #     REPORT_PATH: ${{ github.workspace }}/reports
+  run_e2e_tests:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: make folder for reports
+        run: mkdir reports
+
+      - name: run e2e smoke tests
+        id: tests
+        uses: HSLdevcom/jore4-robot/.github/action@main
+        with:
+          test_env: test
+
+      - name: docker copy
+        if: always()
+        run: docker cp robot-tests:/tests/output/. ${{ github.workspace }}/reports/
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v1
+        if: always()
+        with:
+          name: reports
+          path: ${{ github.workspace }}/reports
