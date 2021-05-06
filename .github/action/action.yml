@@ -1,21 +1,30 @@
-name: "Hello World"
-description: "Greet someone"
+name: "E2E tests"
+description: "Builds test environment and runs e2e tests"
 inputs:
-  who-to-greet: # id of input
-    description: "Who to greet"
+  front_end_version:
+    description: "version of ui to use"
     required: true
-    default: "World"
-outputs:
-  random-number:
-    description: "Random number"
-    value: ${{ steps.random-number-generator.outputs.random-id }}
+    default: "latest"
+
 runs:
-  using: "composite"
+  runs-on: ubuntu-20.04
   steps:
-    - run: echo Hello ${{ inputs.who-to-greet }}.
-      shell: bash
-    - id: random-number-generator
-      run: echo "::set-output name=random-id::$(echo $RANDOM)"
-      shell: bash
-    - run: ${{ github.action_path }}/goodbye.sh
-      shell: bash
+    # note that we don't checkout code in this job!
+    - name: Inject slug/short variables into env
+      uses: rlespinasse/github-slug-action@v3.x
+
+    - name: Setup e2e cluster with the remote script
+      run: "curl https://raw.githubusercontent.com/HSLdevcom/jore4-flux/${{ env.GITHUB_REF_SLUG }}/setupcluster.sh | bash"
+
+    - name: Verify that application is up and running
+      run: |
+        for i in {1..20}; do
+          curl --fail http://localhost:8000 --output /dev/null --silent && break
+          sleep 5
+          echo $i
+        done
+    - name: Run Robot tests in started environment
+        run: |
+          docker run --name "robot-tests"\
+            hsldevcom/jore4-robot:latest \
+              bash -c "robot -v ENV:localhost -v BROWSER:chromium --outputdir /tests/output /tests"
