@@ -7,7 +7,7 @@ inputs:
     default: "latest"
 
 runs:
-  runs-on: ubuntu-20.04
+  using: "composite"
   steps:
     # note that we don't checkout code in this job!
     - name: Inject slug/short variables into env
