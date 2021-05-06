@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: new action
-        uses: HSLdevcom/jore4-robot/.github/actions/automatic-tests@robot_action
+        uses: HSLdevcom/jore4-robot/.github/action@robot_action
       - name: make folder for reports
         run: mkdir reports
       - name: Run Robot Framework Tests Manually
