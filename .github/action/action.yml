@@ -1,0 +1,51 @@
+name: "E2E tests"
+description: "Builds test environment and runs e2e tests"
+defaults:
+  run:
+    shell: bash
+inputs:
+  frontend_version:
+    description: Version of ui to use (docker image tag)
+    required: false
+    default: ""
+  backend_version:
+    description: Version of backend to use (docker image tag)
+    required: false
+    default: ""
+  test_env:
+    description: test environment name to select correct robot framework env variables
+    required: false
+    default: "localhost"
+  browser:
+    description: browser for running tests
+    required: false
+    default: "chromium"
+  included_tag:
+    description: Tag for which tests to run
+    required: false
+    default: "smoke"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Setup e2e cluster with the remote script
+      env:
+        # change some docker images to use a different version
+        FRONTEND_DOCKER_IMAGE: ${{ input.frontend_version }} # should be "" if using default
+        BACKEND_DOCKER_IMAGE: ${{ input.backend_version }} # should be "" if using default
+      run: "curl https://raw.githubusercontent.com/HSLdevcom/jore4-flux/e2e/remotecluster.sh | bash"
+
+    - name: Verify that frontend application is up and running
+      run: |
+        for i in {1..20}; do
+          curl --fail http://localhost:8000 --output /dev/null --silent && break
+          sleep 5
+          echo $i
+        done
+
+    - name: Run Robot tests in started environment
+      run: |
+        docker run --name "robot-tests" \
+          --network="host" \
+            hsldevcom/jore4-robot:latest \
+              bash -c "robot -v ENV:${{ inputs.test_env }} -v BROWSER:${{ inputs.browser }} --include ${{ inputs.included_tag }} --nostatusrc --outputdir /tests/output /tests"
