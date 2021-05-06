@@ -22,7 +22,7 @@ jobs:
         uses: rlespinasse/github-slug-action@v3.x
 
       - name: Setup e2e cluster with the remote script
-      run: "curl https://raw.githubusercontent.com/HSLdevcom/jore4-flux/${{ inputs.GITHUB_REF_SLUG }}/setupcluster.sh | bash"
+        run: "curl https://raw.githubusercontent.com/HSLdevcom/jore4-flux/${{ inputs.GITHUB_REF_SLUG }}/setupcluster.sh | bash"
 
       - name: Verify that application is up and running
         run: |
@@ -38,6 +38,7 @@ jobs:
 
       - name: make folder for reports
         run: mkdir reports
+
       - name: Run Robot Framework Tests Manually
         run: |
           docker run --name "robot-tests"\
@@ -45,6 +46,7 @@ jobs:
               bash -c "robot -v ENV:${{ github.event.inputs.env }} -v BROWSER:${{ github.event.inputs.browser }} --include ${{ github.event.inputs.tag }} --outputdir /tests/output /tests"
       - name: docker copy
         run: docker cp robot-tests:/tests/output/. ${{ github.workspace }}/reports/
+
       - name: Upload test results
         uses: actions/upload-artifact@v1
         if: always()
