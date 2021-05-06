@@ -18,32 +18,16 @@ jobs:
   run_tests:
     runs-on: ubuntu-20.04
     steps:
-      - name: Inject slug/short variables into env
-        uses: rlespinasse/github-slug-action@v3.x
-
-      - name: Setup e2e cluster with the remote script
-        run: "curl https://raw.githubusercontent.com/HSLdevcom/jore4-flux/${{ env.GITHUB_REF_SLUG }}/setupcluster.sh | bash"
-
-      - name: Verify that application is up and running
-        run: |
-          for i in {1..20}; do
-            curl --fail http://localhost:8000 --output /dev/null --silent && break
-            sleep 5
-            echo $i
-          done
-      # - name: new action
-      #   uses: HSLdevcom/jore4-robot/.github/action@robot_action
-      #   with:
-      #     GITHUB_REF_SLUG: ${{ env.GITHUB_REF_SLUG }}
-
       - name: make folder for reports
         run: mkdir reports
 
-      - name: Run Robot Framework Tests Manually
-        run: |
-          docker run --name "robot-tests"\
-            hsldevcom/jore4-robot:latest \
-              bash -c "robot -v ENV:${{ github.event.inputs.env }} -v BROWSER:${{ github.event.inputs.browser }} --include ${{ github.event.inputs.tag }} --outputdir /tests/output /tests"
+      - name: new action
+        uses: HSLdevcom/jore4-robot/.github/action@robot_action
+        with:
+          test_env: ${{ github.event.inputs.env }}
+          browser: ${{ github.event.inputs.browser }}
+          test_tag: ${{ github.event.inputs.tag }}
+
       - name: docker copy
         run: docker cp robot-tests:/tests/output/. ${{ github.workspace }}/reports/
 
