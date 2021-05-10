@@ -23,7 +23,7 @@ runs:
   steps:
     # note that we don't checkout code in this job!
     - name: Setup e2e cluster with the remote script
-      run: "curl https://raw.githubusercontent.com/HSLdevcom/jore4-flux/remote-e2e-testing/setupcluster.sh | bash"
+      run: "curl https://raw.githubusercontent.com/HSLdevcom/jore4-flux/remote-e2e-testing/remotecluster.sh | bash"
       shell: bash
 
     - name: Verify that application is up and running
