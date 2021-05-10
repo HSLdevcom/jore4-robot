@@ -35,6 +35,11 @@ runs:
         done
       shell: bash
 
+    - name: Sleep for 30 seconds
+      uses: jakejarvis/wait-action@master
+      with:
+        time: "60s"
+
     - name: Run Robot tests in started environment
       run: |
         docker run --name "robot-tests"\
