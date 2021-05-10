@@ -35,10 +35,6 @@ runs:
         done
       shell: bash
 
-    - name: Sleep
-      run: sleep 30
-      shell: bash
-
     - name: Run Robot tests in started environment
       run: |
         docker run --name "robot-tests"\
