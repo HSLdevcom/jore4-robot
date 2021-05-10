@@ -42,6 +42,7 @@ runs:
     - name: Run Robot tests in started environment
       run: |
         docker run --name "robot-tests"\
-          hsldevcom/jore4-robot:latest \
-            bash -c "robot -v ENV:${{ inputs.test_env }} -v BROWSER:${{ inputs.browser }} --include ${{ inputs.test_tag }} --outputdir /tests/output /tests"
+          --network="host" \
+            hsldevcom/jore4-robot:latest \
+              bash -c "robot -v ENV:${{ inputs.test_env }} -v BROWSER:${{ inputs.browser }} --include ${{ inputs.test_tag }} --outputdir /tests/output /tests"
       shell: bash
