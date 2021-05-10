@@ -35,10 +35,9 @@ runs:
         done
       shell: bash
 
-    - name: Sleep for 30 seconds
-      uses: jakejarvis/wait-action@master
-      with:
-        time: "60s"
+    - name: Sleep
+      run: sleep 30
+      shell: bash
 
     - name: Run Robot tests in started environment
       run: |
