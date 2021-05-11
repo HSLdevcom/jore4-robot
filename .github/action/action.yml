@@ -35,6 +35,9 @@ runs:
         done
       shell: bash
 
+    - name: make folder for reports
+        run: mkdir reports
+
     - name: Run Robot tests in started environment
       run: |
         docker run --name "robot-tests"\
@@ -42,3 +45,13 @@ runs:
             hsldevcom/jore4-robot:latest \
               bash -c "robot -v ENV:${{ inputs.test_env }} -v BROWSER:${{ inputs.browser }} --include ${{ inputs.test_tag }} --outputdir /tests/output /tests"
       shell: bash
+
+    - name: docker copy
+        run: docker cp robot-tests:/tests/output/. ${{ github.workspace }}/reports/
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v1
+        if: always()
+        with:
+          name: reports
+          path: ${{ github.workspace }}/reports
