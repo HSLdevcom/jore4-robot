@@ -30,6 +30,7 @@ jobs:
           test_tag: ${{ github.event.inputs.tag }}
 
       - name: echo log.html
+        if: always()
         run: echo "the file is this ${{ steps.test-results.outputs.results }}"
 
       - name: docker copy
