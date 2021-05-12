@@ -49,4 +49,4 @@ runs:
 
     - name: cat log file to output variable
       run: echo ::set-output name=results::$(docker run -it --rm -a stdout --entrypoint cat robot-tests /tests/output/log.html)
-#echo "::set-output name=some_output::My output ($1)"
+      shell: bash
