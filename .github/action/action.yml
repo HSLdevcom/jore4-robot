@@ -45,6 +45,7 @@ runs:
           --network="host" \
             hsldevcom/jore4-robot:latest \
               bash -c "robot -v ENV:${{ inputs.test_env }} -v BROWSER:${{ inputs.browser }} --include ${{ inputs.test_tag }} --outputdir /tests/output /tests"
+        echo ::set-output name=results::$(docker run -it --rm -a stdout --entrypoint cat robot-tests /tests/output/log.html)
       shell: bash
 
     - name: cat log file to output variable
