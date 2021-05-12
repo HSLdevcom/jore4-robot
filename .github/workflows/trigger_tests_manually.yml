@@ -22,11 +22,15 @@ jobs:
         run: mkdir reports
 
       - name: run e2e smoke tests
+        id: test-results
         uses: HSLdevcom/jore4-robot/.github/action@robot_action
         with:
           test_env: ${{ github.event.inputs.env }}
           browser: ${{ github.event.inputs.browser }}
           test_tag: ${{ github.event.inputs.tag }}
+
+      - name: echo log.html
+        run: echo "the file is this ${{ steps.test-results.outputs.results }}"
 
       - name: docker copy
         run: docker cp robot-tests:/tests/output/. ${{ github.workspace }}/reports/

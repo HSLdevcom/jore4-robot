@@ -18,6 +18,10 @@ inputs:
     required: true
     defaul: "smoke"
 
+outputs:
+  results:
+    description: test results
+
 runs:
   using: "composite"
   steps:
@@ -35,9 +39,6 @@ runs:
         done
       shell: bash
 
-    - name: make folder for reports
-        run: mkdir reports
-
     - name: Run Robot tests in started environment
       run: |
         docker run --name "robot-tests"\
@@ -46,12 +47,6 @@ runs:
               bash -c "robot -v ENV:${{ inputs.test_env }} -v BROWSER:${{ inputs.browser }} --include ${{ inputs.test_tag }} --outputdir /tests/output /tests"
       shell: bash
 
-    - name: docker copy
-        run: docker cp robot-tests:/tests/output/. ${{ github.workspace }}/reports/
-
-      - name: Upload test results
-        uses: actions/upload-artifact@v1
-        if: always()
-        with:
-          name: reports
-          path: ${{ github.workspace }}/reports
+    - name: cat log file to output variable
+      run: echo ::set-output name=results::$(docker run -it --rm -a stdout --entrypoint cat robot-tests /tests/output/log.html)
+#echo "::set-output name=some_output::My output ($1)"
