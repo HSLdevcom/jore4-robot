@@ -24,6 +24,7 @@ outputs:
 
 runs:
   using: "composite"
+  continue-on-error: true
   steps:
     # note that we don't checkout code in this job!
     - name: Setup e2e cluster with the remote script
@@ -50,4 +51,3 @@ runs:
     - name: cat log file to output variable
       run: echo ::set-output name=results::$(docker run -it --rm -a stdout --entrypoint cat robot-tests /tests/output/log.html)
       shell: bash
-      if: always()
