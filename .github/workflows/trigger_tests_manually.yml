@@ -22,17 +22,37 @@ jobs:
       - name: make folder for reports
         run: mkdir reports
 
-      - name: run e2e smoke tests
-        id: test-results
-        uses: HSLdevcom/jore4-robot/.github/action@robot_action
-        with:
-          test_env: ${{ github.event.inputs.env }}
-          browser: ${{ github.event.inputs.browser }}
-          test_tag: ${{ github.event.inputs.tag }}
+      - name: Setup e2e cluster with the remote script
+        run: "curl https://raw.githubusercontent.com/HSLdevcom/jore4-flux/remote-e2e-testing/remotecluster.sh | bash"
 
-      - name: echo log.html
-        if: always()
-        run: echo "the file is this ${{ steps.test-results.outputs.results }}"
+
+      - name: Verify that application is up and running
+        run: |
+          for i in {1..20}; do
+            curl --fail http://localhost:8000 --output /dev/null --silent && break
+            sleep 5
+            echo $i
+          done
+
+    - name: Run Robot tests in started environment
+      run: |
+        docker run --name "robot-tests"\
+          --network="host" \
+            hsldevcom/jore4-robot:latest \
+              bash -c "robot -v ENV:${{ inputs.test_env }} -v BROWSER:${{ inputs.browser }} --include ${{ inputs.test_tag }} --outputdir /tests/output /tests"
+      shell: bash
+
+      # - name: run e2e smoke tests
+      #   id: test-results
+      #   uses: HSLdevcom/jore4-robot/.github/action@robot_action
+      #   with:
+      #     test_env: ${{ github.event.inputs.env }}
+      #     browser: ${{ github.event.inputs.browser }}
+      #     test_tag: ${{ github.event.inputs.tag }}
+
+      # - name: echo log.html
+      #   if: always()
+      #   run: echo "the file is this ${{ steps.test-results.outputs.results }}"
 
       - name: docker copy
         run: docker cp robot-tests:/tests/output/. ${{ github.workspace }}/reports/
