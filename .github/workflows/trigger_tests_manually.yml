@@ -53,6 +53,7 @@ jobs:
       #   run: echo "the file is this ${{ steps.test-results.outputs.results }}"
 
       - name: docker copy
+        if: always()
         run: docker cp robot-tests:/tests/output/. ${{ github.workspace }}/reports/
 
       - name: Upload test results
