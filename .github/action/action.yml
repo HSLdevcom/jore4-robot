@@ -3,20 +3,20 @@ description: "Builds test environment and runs e2e tests"
 inputs:
   front_end_version:
     description: "version of ui to use"
-    required: true
-    default: latest
+    required: false
+    default: "latest"
   test_env:
     description: test environment name to select correct robot framework env variables
-    required: true
-    default: localhost
+    required: false
+    default: "localhost"
   browser:
     description: browser for running tests
-    required: true
-    default: chromium
+    required: false
+    default: "chromium"
   test_tag:
     description: Tag for which tests to run
-    required: true
-    defaul: smok"
+    required: false
+    defaul: "smoke"
 
 outputs:
   results:
