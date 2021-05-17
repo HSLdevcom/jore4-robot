@@ -38,7 +38,7 @@ jobs:
           docker run --name "robot-tests"\
             --network="host" \
               hsldevcom/jore4-robot:latest \
-                bash -c "robot -v ENV:localhost -v BROWSER:$chromium --outputdir /tests/output /tests"
+                bash -c "robot -v ENV:localhost -v BROWSER:$chromium --nostatusrc --outputdir /tests/output /tests"
 
       # - name: run e2e smoke tests
       #   id: test-results
