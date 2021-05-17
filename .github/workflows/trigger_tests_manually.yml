@@ -23,7 +23,7 @@ jobs:
         run: mkdir reports
 
       - name: run e2e smoke tests
-        id: test-results
+        id: tests
         uses: HSLdevcom/jore4-robot/.github/action@robot_action
         with:
           test_env: ${{ github.event.inputs.env }}
@@ -32,7 +32,7 @@ jobs:
 
       - name: echo log.html
         if: always()
-        run: echo "the file is this ${{ steps.test-results.outputs.results }}"
+        run: echo "the file is this ${{ steps.tests.outputs.results }}"
 
       - name: docker copy
         if: always()
