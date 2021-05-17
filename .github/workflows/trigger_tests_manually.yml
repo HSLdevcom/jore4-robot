@@ -17,7 +17,6 @@ on:
 jobs:
   run_tests:
     runs-on: ubuntu-20.04
-    continue-on-error: true
     steps:
       - name: make folder for reports
         run: mkdir reports
@@ -29,10 +28,6 @@ jobs:
           test_env: ${{ github.event.inputs.env }}
           browser: ${{ github.event.inputs.browser }}
           test_tag: ${{ github.event.inputs.tag }}
-
-      - name: echo log.html
-        if: always()
-        run: echo "the file is this ${{ steps.tests.outputs.results }}"
 
       - name: docker copy
         if: always()

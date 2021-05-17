@@ -4,19 +4,19 @@ inputs:
   front_end_version:
     description: "version of ui to use"
     required: true
-    default: "latest"
+    default: latest
   test_env:
     description: test environment name to select correct robot framework env variables
     required: true
-    default: "localhost"
+    default: localhost
   browser:
     description: browser for running tests
     required: true
-    default: "chromium"
+    default: chromium
   test_tag:
     description: Tag for which tests to run
     required: true
-    defaul: "smoke"
+    defaul: smok"
 
 outputs:
   results:
@@ -46,10 +46,3 @@ runs:
             hsldevcom/jore4-robot:latest \
               bash -c "robot -v ENV:${{ inputs.test_env }} -v BROWSER:${{ inputs.browser }} --include ${{ inputs.test_tag }} --nostatusrc --outputdir /tests/output /tests"
       shell: bash
-
-    - name: cat log file to output variable
-      run: |
-        MY_STRING="hello world"
-        echo "::set-output name=results::$MY_STRING"
-      shell: bash
-#docker run -it --rm -a stdout --entrypoint cat robot-tests /tests/output/log.html
