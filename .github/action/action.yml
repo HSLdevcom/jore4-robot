@@ -44,5 +44,5 @@ runs:
         docker run --name "robot-tests"\
           --network="host" \
             hsldevcom/jore4-robot:latest \
-              bash -c "robot -v ENV:${{ input_test_env }} -v BROWSER:${{ input_browser }} --include ${{ input_test_tag }} --nostatusrc --outputdir /tests/output /tests"
+              bash -c "robot -v ENV:${{ inputs.test_env }} -v BROWSER:${{ inputs.browser }} --include ${{ inputs.test_tag }} --nostatusrc --outputdir /tests/output /tests"
       shell: bash
