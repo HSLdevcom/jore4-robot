@@ -16,7 +16,7 @@ inputs:
   included_tag:
     description: Tag for which tests to run
     required: false
-    defaul: "smoke"
+    default: "smoke"
 
 # outputs:
 #   results:
@@ -43,6 +43,5 @@ runs:
         docker run --name "robot-tests"\
           --network="host" \
             hsldevcom/jore4-robot:latest \
-              bash -c "robot -v ENV:${{ inputs.test_env }} -v BROWSER:${{ inputs.browser }} --include smoke --nostatusrc --outputdir /tests/output /tests"
+              bash -c "robot -v ENV:${{ inputs.test_env }} -v BROWSER:${{ inputs.browser }} --include ${{ inputs.included_tag }} --nostatusrc --outputdir /tests/output /tests"
       shell: bash
-#${{ inputs.included_tag }}
