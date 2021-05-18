@@ -15,7 +15,7 @@ on:
         default: smoke
         required: true
 jobs:
-  run_tests:
+  run_e2e_tests:
     runs-on: ubuntu-20.04
     steps:
       - name: make folder for reports

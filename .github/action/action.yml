@@ -18,10 +18,6 @@ inputs:
     required: false
     default: "smoke"
 
-# outputs:
-#   results:
-#     description: test results
-
 runs:
   using: "composite"
   steps:
