@@ -2,7 +2,7 @@ name: "E2E tests"
 description: "Builds test environment and runs e2e tests"
 inputs:
   front_end_version:
-    description: "version of ui to use"
+    description: version of ui to use
     required: false
     default: "latest"
   test_env:
@@ -13,19 +13,18 @@ inputs:
     description: browser for running tests
     required: false
     default: "chromium"
-  test_tag:
+  included_tag:
     description: Tag for which tests to run
     required: false
     defaul: "smoke"
 
-outputs:
-  results:
-    description: test results
+# outputs:
+#   results:
+#     description: test results
 
 runs:
   using: "composite"
   steps:
-    # note that we don't checkout code in this job!
     - name: Setup e2e cluster with the remote script
       run: "curl https://raw.githubusercontent.com/HSLdevcom/jore4-flux/remote-e2e-testing/remotecluster.sh | bash"
       shell: bash
@@ -44,5 +43,5 @@ runs:
         docker run --name "robot-tests"\
           --network="host" \
             hsldevcom/jore4-robot:latest \
-              bash -c "robot -v ENV:${{ inputs.test_env }} -v BROWSER:${{ inputs.browser }} --include ${{ inputs.test_tag }} --nostatusrc --outputdir /tests/output /tests"
+              bash -c "robot -v ENV:${{ inputs.test_env }} -v BROWSER:${{ inputs.browser }} --include ${{ inputs.included_tag }} --nostatusrc --outputdir /tests/output /tests"
       shell: bash
