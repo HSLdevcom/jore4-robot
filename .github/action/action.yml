@@ -22,7 +22,7 @@ runs:
   using: "composite"
   steps:
     - name: Setup e2e cluster with the remote script
-      run: "curl https://raw.githubusercontent.com/HSLdevcom/jore4-flux/e2e/remotecluster.sh FRONTEND_DOCKER_IMAGE=jore4-ui:${{ inputs.front_end_version }}| bash"
+      run: "curl https://raw.githubusercontent.com/HSLdevcom/jore4-flux/e2e/remotecluster.sh FRONTEND_DOCKER_IMAGE=jore4-ui:${{ inputs.front_end_version }} | bash"
       shell: bash
 
     - name: Verify that application is up and running
