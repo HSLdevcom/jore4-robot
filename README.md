@@ -2,7 +2,38 @@
 
 ## Adding e2e tests to pipeline
 
-To add e2e tests to repositorys pipeline. Copy the code from workflow_template.yml and add it to end of your repositorys workflow file.
+```
+#add this to your repositorys cd workflow
+jobs:
+  run_e2e_tests:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: make folder for reports
+        run: mkdir reports
+
+      - name: run e2e smoke tests
+        id: tests
+        uses: HSLdevcom/jore4-robot/.github/action@main
+        with:
+          test_env: #localhost, test or dev
+          browser: #chromium, firefox, webkit
+          test_tag: #if you want to add specific tagg for which tests to run
+          front_end_version: #which docker image to use
+          back_end_version: #which docker image to use
+
+      - name: docker copy
+        if: always()
+        run: docker cp robot-tests:/tests/output/. ${{ github.workspace }}/reports/
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v1
+        if: always()
+        with:
+          name: reports
+          path: ${{ github.workspace }}/reports
+```
+
+To add e2e tests to repositorys pipeline. Copy this template and add it to end of your repositorys workflow file.
 Template contains steps for creating empty folder for test results, calling the action that builds the kubernetes environment and runs tests and then publishing the results as artifacts after tests are run. The artifacts can be found in the summary page of the workflow execution.
 
 ### Action file
@@ -11,6 +42,7 @@ The action inside this repository can be used anywhere and it builds the environ
 It can be given specific versions of docker images, browser to be used and tags for tests to be run as input.
 
 ```
+
 inputs:
   front_end_version:
     description: version of ui to use
@@ -28,6 +60,7 @@ inputs:
     description: Tag for which tests to run
     required: false
     default: "smoke"
+
 ```
 
 # FOLDER LAYOUT
