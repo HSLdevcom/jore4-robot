@@ -1,8 +1,12 @@
 name: "E2E tests"
 description: "Builds test environment and runs e2e tests"
 inputs:
-  front_end_version:
+  frontend_version:
     description: version of ui to use
+    required: false
+    default: "latest"
+  backend_version:
+    description: version of backend to use
     required: false
     default: "latest"
   test_env:
@@ -22,7 +26,8 @@ runs:
   using: "composite"
   steps:
     - name: Setup e2e cluster with the remote script
-      run: "curl FRONTEND_DOCKER_IMAGE=jore4-ui:${{ inputs.front_end_version }} https://raw.githubusercontent.com/HSLdevcom/jore4-flux/e2e/remotecluster.sh | bash"
+      #add BACKEND_DOCKER_IMAGE=hsldevcom/jore4-backend:${{ inputs.backend_version}} to the run command when there are images for it
+      run: "curl FRONTEND_DOCKER_IMAGE=hsldevcom/jore4-ui:${{ inputs.frontend_version }} BACKEND_DOCKER_IMAGEhttps://raw.githubusercontent.com/HSLdevcom/jore4-flux/e2e/remotecluster.sh | bash"
       shell: bash
 
     - name: Verify that application is up and running
