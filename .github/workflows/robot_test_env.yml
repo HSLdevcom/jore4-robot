@@ -5,13 +5,10 @@ on:
       - main
     paths-ignore:
       - "README.md"
-  pull_request:
-    paths-ignore:
-      - "README.md"
 
 jobs:
-  run_tests:
-    runs-on: ubuntu-latest
+  run_e2e_tests:
+    runs-on: ubuntu-20.04
     steps:
       - name: make folder for reports
         run: mkdir reports
