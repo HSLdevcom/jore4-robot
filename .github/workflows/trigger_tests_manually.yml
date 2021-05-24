@@ -23,7 +23,7 @@ jobs:
 
       - name: run e2e smoke tests
         id: tests
-        uses: HSLdevcom/jore4-robot/.github/action@robot_action
+        uses: HSLdevcom/jore4-robot/.github/action@main
         with:
           test_env: ${{ github.event.inputs.env }}
           browser: ${{ github.event.inputs.browser }}
