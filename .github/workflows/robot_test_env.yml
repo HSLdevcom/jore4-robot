@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+      - robot_action
     paths-ignore:
       - "README.md"
 

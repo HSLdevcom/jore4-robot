@@ -15,7 +15,7 @@ jobs:
         id: tests
         uses: HSLdevcom/jore4-robot/.github/action@main
         with:
-          test_env: #localhost, test or dev
+          test_env: #localhost, test or dev (localhost is used in github pipelines, since the service is running in localhost address. Test and dev are used for test/dev.jore.hsl.fi)
           browser: #chromium, firefox, webkit
           test_tag: #if you want to add specific tagg for which tests to run
           front_end_version: #which docker image to use
@@ -34,7 +34,7 @@ jobs:
 ```
 
 To add e2e tests to repositorys pipeline. Copy this template and add it to end of your repositorys workflow file.
-Template contains steps for creating empty folder for test results, calling the action that builds the kubernetes environment and runs tests and then publishing the results as artifacts after tests are run. The artifacts can be found in the summary page of the workflow execution.
+Template contains steps for creating empty folder for test results, calling the action that builds the kubernetes environment and runs tests and then publishing the results as artifacts after tests are run. All the "with" variables can be left out and have default values specified inside the action. The artifacts can be found in the summary page of the workflow execution.
 
 ### Action file
 
@@ -74,10 +74,10 @@ When creating new files:
 
 # HOW TO RUN TESTS
 
-Tests can be run locally with run_tests.sh script.
+Tests can be run on local machine with run_tests.sh script.
 It takes two parameters, that are used as variables in robot files.
 
-1. environment you want to test against
+1. environment you want to test against (localhost, if you are running the service on your machine and dev or test for dev/test.jore.hsl.fi)
 2. Browser you want to test with (possible browsers chromium, firefox, webkit)
 
 f. ex. "sh run_tests.sh test chromium"
