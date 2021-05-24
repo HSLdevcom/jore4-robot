@@ -27,7 +27,7 @@ jobs:
         with:
           test_env: ${{ github.event.inputs.env }}
           browser: ${{ github.event.inputs.browser }}
-          test_tag: ${{ github.event.inputs.tag }}
+          included_tag: ${{ github.event.inputs.tag }}
 
       - name: docker copy
         if: always()
