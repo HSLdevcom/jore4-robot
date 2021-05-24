@@ -1,12 +1,10 @@
-name: Test Env Robot Run
+name: Run Robot Framework tests for test environment
 on:
   push:
     branches:
       - main
-    # do not run tests if file README.md changes
     paths-ignore:
       - "README.md"
-    # run tests for GitHub Pull requests. Test result is visible in the Pull Request page.
   pull_request:
     paths-ignore:
       - "README.md"
@@ -16,21 +14,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: make folder for reports
-      run: mkdir reports
+        run: mkdir reports
 
-    - name: run e2e smoke tests
-      id: tests
-      uses: HSLdevcom/jore4-robot/.github/action@robot_action
-      with:
-        test_env: test
+      - name: run e2e smoke tests
+        id: tests
+        uses: HSLdevcom/jore4-robot/.github/action@main
+        with:
+          test_env: test
 
-    - name: docker copy
-      if: always()
-      run: docker cp robot-tests:/tests/output/. ${{ github.workspace }}/reports/
+      - name: docker copy
+        if: always()
+        run: docker cp robot-tests:/tests/output/. ${{ github.workspace }}/reports/
 
-    - name: Upload test results
-      uses: actions/upload-artifact@v1
-      if: always()
-      with:
-        name: reports
-        path: ${{ github.workspace }}/reports
+      - name: Upload test results
+        uses: actions/upload-artifact@v1
+        if: always()
+        with:
+          name: reports
+          path: ${{ github.workspace }}/reports
