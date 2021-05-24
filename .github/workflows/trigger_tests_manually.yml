@@ -4,7 +4,7 @@ on:
     inputs:
       env:
         description: "In which env you want to run the tests in"
-        default: test
+        default: localhost
         required: true
       browser:
         description: "Which browser you want to use"
