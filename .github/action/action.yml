@@ -27,7 +27,7 @@ runs:
   steps:
     - name: Setup e2e cluster with the remote script
       #add BACKEND_DOCKER_IMAGE=hsldevcom/jore4-backend:${{ inputs.backend_version}} to the run command when there are images for it
-      run: "curl FRONTEND_DOCKER_IMAGE=hsldevcom/jore4-ui:${{ inputs.frontend_version }} BACKEND_DOCKER_IMAGEhttps://raw.githubusercontent.com/HSLdevcom/jore4-flux/e2e/remotecluster.sh | bash"
+      run: "curl FRONTEND_DOCKER_IMAGE=hsldevcom/jore4-ui:${{ inputs.frontend_version }} https://raw.githubusercontent.com/HSLdevcom/jore4-flux/e2e/remotecluster.sh | bash"
       shell: bash
 
     - name: Verify that application is up and running
