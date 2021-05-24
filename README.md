@@ -18,8 +18,8 @@ jobs:
           test_env: #localhost, test or dev (localhost is used in github pipelines, since the service is running in localhost address. Test and dev are used for test/dev.jore.hsl.fi)
           browser: #chromium, firefox, webkit
           test_tag: #if you want to add specific tagg for which tests to run
-          front_end_version: #which docker image to use
-          back_end_version: #which docker image to use
+          frontend_version: #which docker image to use
+          backend_version: #which docker image to use
 
       - name: docker copy
         if: always()
@@ -44,8 +44,12 @@ It can be given specific versions of docker images, browser to be used and tags 
 ```
 
 inputs:
-  front_end_version:
+  frontend_version:
     description: version of ui to use
+    required: false
+    default: "latest"
+  backend_version:
+    description: version of backend to use
     required: false
     default: "latest"
   test_env:
