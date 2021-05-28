@@ -1,8 +1,5 @@
 name: "E2E tests"
 description: "Builds test environment and runs e2e tests"
-defaults:
-  run:
-    shell: bash
 inputs:
   frontend_version:
     description: Version of ui to use (docker image tag)
@@ -30,10 +27,11 @@ runs:
   steps:
     - name: Setup e2e cluster with the remote script
       env:
-        # change some docker images to use a different version
-        FRONTEND_DOCKER_IMAGE: ${{ input.frontend_version }} # should be "" if using default
-        BACKEND_DOCKER_IMAGE: ${{ input.backend_version }} # should be "" if using default
+        # change docker images to use a different version
+        FRONTEND_DOCKER_IMAGE: ${{ inputs.frontend_version }} # should be "" if using default
+        BACKEND_DOCKER_IMAGE: ${{ inputs.backend_version }} # should be "" if using default
       run: "curl https://raw.githubusercontent.com/HSLdevcom/jore4-flux/e2e/remotecluster.sh | bash"
+      shell: bash
 
     - name: Verify that frontend application is up and running
       run: |
@@ -42,6 +40,7 @@ runs:
           sleep 5
           echo $i
         done
+      shell: bash
 
     - name: Run Robot tests in started environment
       run: |
@@ -49,3 +48,4 @@ runs:
           --network="host" \
             hsldevcom/jore4-robot:latest \
               bash -c "robot -v ENV:${{ inputs.test_env }} -v BROWSER:${{ inputs.browser }} --include ${{ inputs.included_tag }} --nostatusrc --outputdir /tests/output /tests"
+      shell: bash

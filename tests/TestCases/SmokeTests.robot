@@ -5,6 +5,10 @@ Suite Setup         setup browser
 Suite Teardown      test teardown
 
 *** Test Cases ***
+Health Check For Test Action
+    [Tags]    action_health_check
+    Get Url   equal    ${SUT_URL}
+
 Leaflet Can Be Zoomed In Once
     Get Url   equal    ${SUT_URL}
     Click    ${LEAFLET_ZOOM_IN}
