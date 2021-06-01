@@ -15,7 +15,7 @@ jobs:
 
       - name: run e2e smoke tests
         id: tests
-        uses: HSLdevcom/jore4-robot/.github/action@main
+        uses: HSLdevcom/jore4-robot/.github/e2e_action@main
         with:
           test_env: test
 
