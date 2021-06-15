@@ -30,9 +30,11 @@ jobs:
           included_tag: ${{ github.event.inputs.tag }}
 
       - name: Retrieve test results from docker container
+        if: always()
         run: docker cp robot-tests:/tests/output/. ${{ github.workspace }}/reports/
 
       - name: Expose test results as an artifact
+        if: always()
         uses: actions/upload-artifact@v1
         with:
           name: reports

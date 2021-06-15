@@ -46,9 +46,11 @@ jobs:
           backend_version: #which docker image to use, e.g. 'hsldevcom/jore-backend:latest'
 
       - name: Retrieve test results from docker container
+        if: always()
         run: docker cp robot-tests:/tests/output/. ${{ github.workspace }}/reports/
 
       - name: Expose test results as an artifact
+        if: always()
         uses: actions/upload-artifact@v1
         with:
           name: reports

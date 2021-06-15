@@ -1,4 +1,4 @@
-name: Test action for e2e testing
+name: Testing e2e action
 
 on:
   push:
