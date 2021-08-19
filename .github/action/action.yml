@@ -9,6 +9,10 @@ inputs:
     description: Version of backend to use (docker image tag)
     required: false
     default: ""
+  test_suite_version:
+    description: Which version of tests to use (docker image tag)
+    required: false
+    default: latest
   test_env:
     description: test environment name to select correct robot framework env variables
     required: false
@@ -46,6 +50,6 @@ runs:
       run: |
         docker run --name "robot-tests" \
           --network="host" \
-            hsldevcom/jore4-robot:latest \
+            hsldevcom/jore4-robot:${{ inputs.test_suite_version }} \
               bash -c "robot -v ENV:${{ inputs.test_env }} -v BROWSER:${{ inputs.browser }} --include ${{ inputs.included_tag }} --outputdir /tests/output /tests"
       shell: bash
