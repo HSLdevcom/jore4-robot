@@ -3,8 +3,7 @@ on:
   push:
     branches:
       - main
-      - action_fix
-
+  pull_request:
   workflow_dispatch:
 
 jobs:
@@ -16,11 +15,30 @@ jobs:
       - name: checkout code
         uses: actions/checkout@v2
 
-      - name: Set local env variables
-        run: echo "ROBOT_IMAGE=hsldevcom/jore4-robot" >> $GITHUB_ENV
+      - name: Extract branch name to env variable
+        run: |
+          # In pull requests
+          BRANCH_NAME="${GITHUB_HEAD_REF}"
+          [[ ${BRANCH_NAME} = "" ]] && {
+            # In branch pushes
+            BRANCH_NAME="$(echo "${GITHUB_REF}" | cut -d '/' -f 3-)"
+          }
+          echo "BRANCH_NAME=${BRANCH_NAME}" >> "${GITHUB_ENV}"
+
+      - name: Set image name as environment variable
+        run: |
+          # Docker Hub uses lowercase so use a bashism to convert.
+          echo "IMAGE_NAME=${GITHUB_REPOSITORY,,}" >> $GITHUB_ENV
 
       - name: Build docker image
-        run: docker build -t $ROBOT_IMAGE .
+        run: docker build -t $IMAGE_NAME .
+
+      - name: Tag docker image as 'latest'
+        if: ${{ github.ref == 'refs/heads/main' }}
+        run: docker tag $IMAGE_NAME $IMAGE_NAME:latest
+
+      - name: Tag docker image as '<branch_name>
+        run: docker tag $IMAGE_NAME $IMAGE_NAME:$BRANCH_NAME
 
       - name: Login to DockerHub
         uses: docker/login-action@v1
@@ -28,5 +46,9 @@ jobs:
           username: ${{ secrets.JORE4_DOCKERHUB_USER }}
           password: ${{ secrets.JORE4_DOCKERHUB_TOKEN }}
 
-      - name: Push image to DockerHub
-        run: docker push $ROBOT_IMAGE
+      - name: Push image tagged with git commit details to Docker Hub
+        run: docker push $IMAGE_NAME:$BRANCH_NAME
+
+      - name: Push rest of the tags to Docker Hub
+        if: ${{ github.ref == 'refs/heads/main' }}
+        run: docker push $IMAGE_NAME:latest
