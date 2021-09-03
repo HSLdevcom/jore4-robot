@@ -15,40 +15,24 @@ jobs:
       - name: checkout code
         uses: actions/checkout@v2
 
-      - name: Extract branch name to env variable
-        run: |
-          # In pull requests
-          BRANCH_NAME="${GITHUB_HEAD_REF}"
-          [[ ${BRANCH_NAME} = "" ]] && {
-            # In branch pushes
-            BRANCH_NAME="$(echo "${GITHUB_REF}" | cut -d '/' -f 3-)"
-          }
-          echo "BRANCH_NAME=${BRANCH_NAME}" >> "${GITHUB_ENV}"
+      - name: Extract repository metadata to env variables
+        uses: HSLdevcom/jore4-tools/github-actions/extract-metadata@extract-metadata-v1
 
-      - name: Set image name as environment variable
-        run: |
-          # Docker Hub uses lowercase so use a bashism to convert.
-          echo "IMAGE_NAME=${GITHUB_REPOSITORY,,}" >> $GITHUB_ENV
+      - name: Build docker image for distribution
+        run: docker build -t $IMAGE_NAME:latest .
 
-      - name: Build docker image
-        run: docker build -t $IMAGE_NAME .
+      - name: Tag docker image as '<branch_name>--<git_commit_sha>'
+        run: docker tag $IMAGE_NAME:latest $IMAGE_NAME:$COMMIT_ID
 
-      - name: Tag docker image as 'latest'
-        if: ${{ github.ref == 'refs/heads/main' }}
-        run: docker tag $IMAGE_NAME $IMAGE_NAME:latest
-
-      - name: Tag docker image as '<branch_name>
-        run: docker tag $IMAGE_NAME $IMAGE_NAME:$BRANCH_NAME
-
-      - name: Login to DockerHub
+      - name: Login to Docker Hub
         uses: docker/login-action@v1
         with:
           username: ${{ secrets.JORE4_DOCKERHUB_USER }}
           password: ${{ secrets.JORE4_DOCKERHUB_TOKEN }}
 
       - name: Push image tagged with git commit details to Docker Hub
-        run: docker push $IMAGE_NAME:$BRANCH_NAME
+        run: docker push $IMAGE_NAME:$COMMIT_ID
 
-      - name: Push rest of the tags to Docker Hub
+      - name: Push :latest tag to Docker Hub
         if: ${{ github.ref == 'refs/heads/main' }}
         run: docker push $IMAGE_NAME:latest
