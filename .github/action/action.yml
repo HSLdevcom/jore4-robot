@@ -50,11 +50,6 @@ runs:
       run: |
         docker run --name "robot-tests" \
           --network="host" \
-<<<<<<< HEAD
-            hsldevcom/jore4-robot:${{ inputs.test_suite_version }} \
-              bash -c "robot -v ENV:${{ inputs.test_env }} -v BROWSER:${{ inputs.browser }} --include ${{ inputs.included_tag }} --outputdir /tests/output /tests"
-=======
             hsldevcom/jore4-robot:latest \
               bash -c "robot -v ENV:${{ inputs.test_env }} -v BROWSER:${{ inputs.browser }} -v PASSWORD:${{ secrets.ROBOT_HSLID_PASSWORD }} -v USERNAME:${{ secrets.ROBOT_HSLID_EMAIL }} --include ${{ inputs.included_tag }} --outputdir /tests/output /tests"
->>>>>>> 652bf61 (Added a test for login)
       shell: bash
