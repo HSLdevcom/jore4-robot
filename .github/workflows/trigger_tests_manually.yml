@@ -33,6 +33,8 @@ jobs:
           browser: ${{ github.event.inputs.browser }}
           included_tag: ${{ github.event.inputs.tag }}
           test_suite_version: ${{ github.event.inputs.version }}
+          email: ${{ secrets.ROBOT_HSLID_EMAIL }}
+          password: ${{ secrets.ROBOT_HSLID_PASSWORD }}
 
       - name: Retrieve test results from docker container
         if: always()

@@ -9,8 +9,8 @@ user should be logged in
     auth api returns correct user info
 
 input account details
-    Fill Secret    ${LOGIN_PAGE_EMAIL_FIELD}    $USERNAME
-    Fill Secret    ${LOGIN_PAGE_PASSWORD_FIELD}   $PASSWORD
+    Fill Secret    ${LOGIN_PAGE_EMAIL_FIELD}    ${EMAIL}
+    Fill Secret    ${LOGIN_PAGE_PASSWORD_FIELD}   ${PASSWORD}
 
 user sees welcome message
     Wait For Navigation    ${SUT_URL}
