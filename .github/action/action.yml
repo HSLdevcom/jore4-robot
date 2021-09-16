@@ -1,18 +1,18 @@
 name: "E2E tests"
 description: "Builds test environment and runs e2e tests"
 inputs:
-  frontend_version:
+  ui_version:
     description: Version of ui to use (docker image tag)
     required: false
     default: ""
-  backend_version:
-    description: Version of backend to use (docker image tag)
+  hasura_version:
+    description: Version of hasura to use (docker image tag)
     required: false
     default: ""
   test_suite_version:
     description: Which version of tests to use (docker image tag)
     required: false
-    default: latest
+    default: "latest"
   test_env:
     description: test environment name to select correct robot framework env variables
     required: false
@@ -25,6 +25,12 @@ inputs:
     description: Tag for which tests to run
     required: false
     default: "smoke"
+  email:
+    description: Email address for robot user
+    required: true
+  password:
+    description: Password for robot user
+    required: true
 
 runs:
   using: "composite"
@@ -32,8 +38,8 @@ runs:
     - name: Setup e2e cluster with the remote script
       env:
         # change docker images to use a different version
-        FRONTEND_DOCKER_IMAGE: ${{ inputs.frontend_version }} # should be "" if using default
-        BACKEND_DOCKER_IMAGE: ${{ inputs.backend_version }} # should be "" if using default
+        UI_DOCKER_IMAGE: ${{ inputs.ui_version }} # should be "" if using default
+        HASURA_DOCKER_IMAGE: ${{ inputs.hasura_version }} # should be "" if using default
       run: "curl https://raw.githubusercontent.com/HSLdevcom/jore4-flux/e2e/remotecluster.sh | bash"
       shell: bash
 
@@ -50,11 +56,6 @@ runs:
       run: |
         docker run --name "robot-tests" \
           --network="host" \
-<<<<<<< HEAD
-            hsldevcom/jore4-robot:${{ inputs.test_suite_version }} \
-              bash -c "robot -v ENV:${{ inputs.test_env }} -v BROWSER:${{ inputs.browser }} --include ${{ inputs.included_tag }} --outputdir /tests/output /tests"
-=======
-            hsldevcom/jore4-robot:latest \
-              bash -c "robot -v ENV:${{ inputs.test_env }} -v BROWSER:${{ inputs.browser }} -v PASSWORD:${{ secrets.ROBOT_HSLID_PASSWORD }} -v USERNAME:${{ secrets.ROBOT_HSLID_EMAIL }} --include ${{ inputs.included_tag }} --outputdir /tests/output /tests"
->>>>>>> 652bf61 (Added a test for login)
+            hsldevcom/jore4-robot:${{ inputs.test_suite_version }}\
+              bash -c "robot -v ENV:${{ inputs.test_env }} -v BROWSER:${{ inputs.browser }} -v PASSWORD:${{ inputs.password }} -v EMAIL:${{ inputs.email }} --include ${{ inputs.included_tag }} --outputdir /tests/output /tests"
       shell: bash

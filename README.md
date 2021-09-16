@@ -42,8 +42,8 @@ jobs:
           test_env: #'localhost', 'test' or 'dev' (localhost is used in github pipelines, since the service is running in localhost address. Test and dev are used for test/dev.jore.hsl.fi)
           browser: #'chromium', 'firefox', 'webkit'
           test_tag: #if you want to add specific tag for which tests to run
-          frontend_version: #which docker image to use, e.g. 'hsldevcom/jore-ui:latest'
-          backend_version: #which docker image to use, e.g. 'hsldevcom/jore-backend:latest'
+          ui_version: #which docker image to use, e.g. 'hsldevcom/jore-ui:latest'
+          hasura_version: #which docker image to use, e.g. 'hsldevcom/jore-hasura:latest'
 
       - name: Retrieve test results from docker container
         if: always()
