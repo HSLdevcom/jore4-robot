@@ -44,6 +44,9 @@ jobs:
           test_tag: #if you want to add specific tag for which tests to run
           ui_version: #which docker image to use, e.g. 'hsldevcom/jore-ui:latest'
           hasura_version: #which docker image to use, e.g. 'hsldevcom/jore-hasura:latest'
+          test_suite_version: #which docker image to use, e.g. 'hsldevcom/jore4-robot:latest'
+          e2e_username: #'${{ secrets.ROBOT_HSLID_EMAIL }}' hsl-id email for test user, saved in repositorys secrets
+          e2e_password: #'${{ secrets.ROBOT_HSLID_PASSWORD }}' hsl-id password for test user, saved in repositorys secrets
 
       - name: Retrieve test results from docker container
         if: always()

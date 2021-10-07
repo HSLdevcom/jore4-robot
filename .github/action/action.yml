@@ -25,10 +25,10 @@ inputs:
     description: Tag for which tests to run
     required: false
     default: "smoke"
-  email:
+  e2e_username:
     description: Email address for robot user
     required: true
-  password:
+  e2e_password:
     description: Password for robot user
     required: true
 
@@ -57,5 +57,5 @@ runs:
         docker run --name "robot-tests" \
           --network="host" \
             hsldevcom/jore4-robot:${{ inputs.test_suite_version }}\
-              bash -c "robot -v ENV:${{ inputs.test_env }} -v BROWSER:${{ inputs.browser }} -v PASSWORD:${{ inputs.password }} -v EMAIL:${{ inputs.email }} --include ${{ inputs.included_tag }} --outputdir /tests/output /tests"
+              bash -c "robot -v ENV:${{ inputs.test_env }} -v BROWSER:${{ inputs.browser }} -v PASSWORD:${{ inputs.e2e_password }} -v EMAIL:${{ inputs.e2e_username }} --include ${{ inputs.included_tag }} --outputdir /tests/output /tests"
       shell: bash
