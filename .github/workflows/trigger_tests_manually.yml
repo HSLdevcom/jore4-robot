@@ -22,12 +22,15 @@ jobs:
   run_e2e_tests:
     runs-on: ubuntu-20.04
     steps:
-      - name: make folder for reports
-        run: mkdir reports
+      - name: start e2e env
+        uses: HSLdevcom/jore4-flux/github-actions/setup-e2e-environment@setup-e2e-environment-v1
+
+      - name: Restart auth backend
+        run: docker-compose -f ${{ github.workspace }}/docker/docker-compose.yml restart jore4-auth
 
       - name: run e2e smoke tests
         id: tests
-        uses: HSLdevcom/jore4-robot/.github/action@v1
+        uses: HSLdevcom/jore4-robot/.github/action@separate-env-setup
         with:
           test_env: ${{ github.event.inputs.env }}
           browser: ${{ github.event.inputs.browser }}

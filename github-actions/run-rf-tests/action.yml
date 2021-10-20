@@ -1,14 +1,6 @@
 name: "E2E tests"
 description: "Builds test environment and runs e2e tests"
 inputs:
-  ui_version:
-    description: Version of ui to use (docker image tag)
-    required: false
-    default: ""
-  hasura_version:
-    description: Version of hasura to use (docker image tag)
-    required: false
-    default: ""
   test_suite_version:
     description: Which version of tests to use (docker image tag)
     required: false
@@ -35,21 +27,8 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Setup e2e cluster with the remote script
-      env:
-        # change docker images to use a different version
-        UI_DOCKER_IMAGE: ${{ inputs.ui_version }} # should be "" if using default
-        HASURA_DOCKER_IMAGE: ${{ inputs.hasura_version }} # should be "" if using default
-      run: "curl https://raw.githubusercontent.com/HSLdevcom/jore4-flux/e2e/remotecluster.sh | bash"
-      shell: bash
-
-    - name: Verify that frontend application is up and running
-      run: |
-        for i in {1..20}; do
-          curl --fail http://localhost:8000 --output /dev/null --silent && break
-          sleep 5
-          echo $i
-        done
+    - name: Create folder for reports
+      run: mkdir -p ${{ github.workspace }}/docker
       shell: bash
 
     - name: Run Robot tests in started environment
