@@ -1,0 +1,33 @@
+name: Run tests after new commit
+on:
+  push:
+    branches-ignore:
+      - main
+  workflow_dispatch:
+
+jobs:
+  run_e2e_tests:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v2
+
+      - name: Extract repository metadata to env variables
+        uses: HSLdevcom/jore4-tools/github-actions/extract-metadata@extract-metadata-v1
+
+      - name: Build docker image for distribution
+        run: docker build -t $IMAGE_NAME:ci .
+
+      - name: start e2e env
+        uses: HSLdevcom/jore4-flux/github-actions/setup-e2e-environment@setup-e2e-environment-v1
+
+      - name: run e2e smoke tests
+        uses: HSLdevcom/jore4-robot/github-actions/run-rf-tests@separate-env-setup
+        with:
+          test_suite_version: ci
+          e2e_username: ${{ secrets.ROBOT_HSLID_EMAIL }}
+          e2e_password: ${{ secrets.ROBOT_HSLID_PASSWORD }}
+
+      - name: upload test results
+        if: always()
+        uses: HSLdevcom/jore4-robot/github-actions/upload-results@separate-env-setup
