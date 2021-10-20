@@ -36,3 +36,37 @@ jobs:
       - name: Push :latest tag to Docker Hub
         if: ${{ github.ref == 'refs/heads/main' }}
         run: docker push $IMAGE_NAME:latest
+
+  test_e2e_action:
+    needs: push_to_registry
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Extract repository metadata to env variables
+        uses: HSLdevcom/jore4-tools/github-actions/extract-metadata@extract-metadata-v1
+
+      - name: start e2e env
+        uses: HSLdevcom/jore4-flux/github-actions/setup-e2e-environment@setup-e2e-environment-v1
+
+      - name: run simple health check test
+        id: tests
+        uses: ./github-actions/run-rf-tests
+        with:
+          included_tag: action_health_check
+          test_suite_version: ${{ env.COMMIT_ID }}
+
+      - name: upload test results
+        uses: ./github-actions/upload-results
+
+      - name: Check that reports folder contains log.html
+        run: |
+          FILE=${{ github.workspace }}/reports/log.html
+          if [ -f "$FILE" ]; then
+            echo "File $FILE exists"
+          else
+            echo "File $FILE does not exist"
+            exit 1
+          fi
