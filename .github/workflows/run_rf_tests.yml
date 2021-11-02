@@ -22,10 +22,8 @@ on:
         required: true
 
 jobs:
-  push_to_registry:
-    name: Build & Push docker image to dockerhub
-    runs-on: ubuntu-latest
-
+  run_e2e_tests:
+    runs-on: ubuntu-20.04
     steps:
       - name: checkout code
         uses: actions/checkout@v2
@@ -38,13 +36,6 @@ jobs:
 
       - name: Tag docker image as '<branch_name>--<git_commit_sha>'
         run: docker tag $IMAGE_NAME:latest $IMAGE_NAME:$COMMIT_ID
-
-  run_e2e_tests:
-    needs: push_to_registry
-    runs-on: ubuntu-20.04
-    steps:
-      - name: Extract repository metadata to env variables
-        uses: HSLdevcom/jore4-tools/github-actions/extract-metadata@extract-metadata-v1
 
       - name: start e2e env
         uses: HSLdevcom/jore4-flux/github-actions/setup-e2e-environment@setup-e2e-environment-v1
