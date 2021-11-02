@@ -29,10 +29,7 @@ jobs:
         uses: HSLdevcom/jore4-tools/github-actions/extract-metadata@extract-metadata-v1
 
       - name: Build docker image for distribution
-        run: docker build -t $IMAGE_NAME:latest .
-
-      - name: Tag docker image as '<branch_name>--<git_commit_sha>'
-        run: docker tag $IMAGE_NAME:latest $IMAGE_NAME:$COMMIT_ID
+        run: docker build -t $IMAGE_NAME:ci .
 
       - name: start e2e env
         uses: HSLdevcom/jore4-flux/github-actions/setup-e2e-environment@setup-e2e-environment-v1
@@ -44,7 +41,7 @@ jobs:
           test_env: ${{ github.event.inputs.env }}
           browser: ${{ github.event.inputs.browser }}
           included_tag: ${{ github.event.inputs.tag }}
-          test_suite_version: ${{ env.COMMIT_ID }}
+          test_suite_version: ci
           e2e_username: ${{ secrets.ROBOT_HSLID_EMAIL }}
           e2e_password: ${{ secrets.ROBOT_HSLID_PASSWORD }}
 
