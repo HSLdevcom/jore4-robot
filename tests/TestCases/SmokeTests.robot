@@ -1,15 +1,12 @@
 *** Settings ***
 Resource            ./TestResources.robot
 Force Tags          smoke
-Suite Setup         setup browser
-Suite Teardown      test teardown
+Suite Setup         log in to jore4
+Suite Teardown      suite teardown
 
 *** Test Cases ***
-health check for test action
-    [Tags]    action_health_check
-    Get Url   equal    ${SUT_URL}
-
-as a user i want to login with hslid
-    [Tags]    login
-    given user logs in with hslid
-    then user should be logged in
+as a user i want to create a new line
+    [Tags]    line
+    [Setup]   set test variables for new line
+    given user creates a new line
+    then line should be saved in db

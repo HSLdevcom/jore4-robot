@@ -1,8 +1,14 @@
 *** Keywords ***
 user logs in with hslid
-    Click    ${USER_PROFILE_BUTTON}
+    Click    ${USER_LOGIN_BUTTON}
     input account details
     Click    ${LOGIN_PAGE_SIGN_IN_BUTTON}
+
+user logs out
+    Click    ${USER_PROFILE_BUTTON}
+    Click    ${USER_DROPDOWN_LOGOUT}
+    Click    ${HSLID_SIGN_OUT_BUTTON}
+    Get Element    ${PLEASE_LOG_IN_TEXT}
 
 user should be logged in
     user sees welcome message

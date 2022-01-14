@@ -8,9 +8,11 @@ Library       RequestsLibrary
 Library       BuiltIn
 Library       OperatingSystem
 Library       String
+Library       FakerLibrary
 #Here is list of all "gatherer" files
 Resource        ../Resources/Resources.robot
 Resource        ../Keywords/Keywords.robot
 #here is list of python libraries
 Library         ../Libraries/common_functions.py
+Library         ../Libraries/hasura_queries.py    ${HASURA_API_URL}
 
