@@ -30,3 +30,25 @@ class hasura_queries:
       }
       response = self.endpoint(query, variables)
       return json.dumps(response)
+
+    def getStopPointDetails(self, label):
+      query='''
+      query ($label: String!) {
+        service_pattern_scheduled_stop_point(where: {label: {_eq: $label}}){
+          closest_point_on_infrastructure_link
+          direction
+          located_on_infrastructure_link_id
+          measured_location
+          priority
+          relative_distance_from_infrastructure_link_start
+          scheduled_stop_point_id
+          validity_end
+          validity_start
+        }
+      }
+      '''
+      variables = {
+        'label': str(label),
+      }
+      response = self.endpoint(query, variables)
+      return json.dumps(response)

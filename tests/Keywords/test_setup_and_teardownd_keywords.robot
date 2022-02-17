@@ -5,7 +5,7 @@ log in to jore4
 
 setup browser
     New Browser    ${BROWSER}   headless=true
-    New Context    viewport={'width': 1920, 'height': 1080}
+    New Context    viewport={'width': ${SCREEN_WITDH}, 'height': ${SCREEN_HEIGHT}}
     New Page  ${SUT_URL}
 
 suite teardown
@@ -21,3 +21,9 @@ set test variables for new line
     ${name}    Street Name
     Set Test Variable    ${NEW_LINE_NAME}   ${name}
     Set Test Variable    ${NEW_LINE_PRIMARY_VEHICLE_MODE}    bus
+
+set test variables for new stop
+    ${stop_label}    Street Name
+    Set Test Variable    ${STOP_LABEL}    ${stop_label}
+    ${today}    Date today
+    Set Test Variable    ${DATE_TODAY}   ${today}

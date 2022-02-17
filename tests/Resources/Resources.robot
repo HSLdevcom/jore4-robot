@@ -6,3 +6,4 @@ Variables     ../Libraries/common_functions.py
 #When adding new robot variable files add them here as Resources
 Resource      ./xpaths.robot
 Resource      ./routes_and_lines_locators.robot
+Resource      ./login_locators.robot
