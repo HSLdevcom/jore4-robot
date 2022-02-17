@@ -1,26 +1,26 @@
 *** Keywords ***
 user logs in with hslid
-    Click    ${USER_LOGIN_BUTTON}
+    Click    ${UserLoginButton}
     input account details
-    Click    ${LOGIN_PAGE_SIGN_IN_BUTTON}
+    Click    ${LoginPageSignInButton}
 
 user logs out
-    Click    ${USER_PROFILE_BUTTON}
-    Click    ${USER_DROPDOWN_LOGOUT}
-    Click    ${HSLID_SIGN_OUT_BUTTON}
-    Get Element    ${PLEASE_LOG_IN_TEXT}
+    Click    ${UserProfileButton}
+    Click    ${UserDropdownLogout}
+    Click    ${HslidSignOutButton}
+    Get Element    ${PleaseLogInText}
 
 user should be logged in
     user sees welcome message
     auth api returns correct user info
 
 input account details
-    Fill Secret    ${LOGIN_PAGE_EMAIL_FIELD}    ${EMAIL}
-    Fill Secret    ${LOGIN_PAGE_PASSWORD_FIELD}   ${PASSWORD}
+    Fill Secret    ${LoginPageEmailField}    ${EMAIL}
+    Fill Secret    ${LoginPagePasswordField}   ${PASSWORD}
 
 user sees welcome message
     Wait For Navigation    ${SUT_URL}
-    ${text_on_page} =    Get Text    ${TEXT_FIELD}  *=  ${WELCOME_MESSAGE}
+    ${text_on_page} =    Get Text    ${TextField}  *=  ${WelcomeMessage}
 
 auth api returns correct user info
     &{res} =    Http    ${USER_INFO_URL}

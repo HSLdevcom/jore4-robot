@@ -1,4 +1,8 @@
 *** Keywords ***
+user goes to routes and lines map view
+    Click     ${RoutesAndLinesHeader}
+    Click     ${OpenMapButton}
+
 user creates a new line
     Click     ${RoutesAndLinesHeader}
     Click     ${CreateNewLineButton}
@@ -8,35 +12,51 @@ input details for new line
     Fill Text     ${NewLineLabelInput}      ${NEW_LINE_LABEL}
     Fill Text     ${NewLineFinnishNameInput}    ${NEW_LINE_NAME}
     Click         ${StandardPriority}
-    ${date_mmddyyyy}    Date as mmddyyyy    ${DATE_TODAY}
-    Type Text     ${ValidityStartInput}     ${date_mmddyyyy}
-    Click     ${IndefiniteCheckbox}
+    set indefinite validity period    ${DATE_TODAY}
     Click     ${NewLineSaveButton}
 
-line should be saved in db
+user opens map modal
+    Click    ${RoutesAndLinesHeader}
+    Click    ${OpenModalButton}
+
+user adds a new bus stop
+    [Documentation]   waits until network is idle, so that map is loaded properly
     Wait Until Network Is Idle
-    Sleep    1
-    ${response}   Get line details from hasura    ${NEW_LINE_LABEL}
-    line details should be correct    ${response}
+    Click    ${AddStopButton}    force=True
+    Click    ${MapGlMapBox}   position_x= 960    position_y= 540    force=True
+    edit new bus stop
+    validate stop creation responses
 
+validate stop creation responses
+    ${point_to_closest_link}   Wait For Response    ${HASURA_API_URL}
+    ${point_direction_on_link}   Wait For Response    ${HASURA_API_URL}
+    ${insert_stop_point}   Wait For Response    ${HASURA_API_URL}
 
-line details should be correct
-    [Arguments]   ${response}
-    starting date should be correct    ${response}
-    value in response is correct    ${response}   route_line    name_i18n               ${NEW_LINE_NAME}
-    value in response is correct    ${response}   route_line    primary_vehicle_mode    ${NEW_LINE_PRIMARY_VEHICLE_MODE}
-    value in response is correct    ${response}   route_line    validity_end            ${None}
-    ${priority}  Convert To Integer   10
-    value in response is correct    ${response}   route_line    priority                ${priority}
+    ${point_to_link_json}   Dict to json    ${point_to_closest_link}[body]
+    ${link_id}    Get value from response by key     ${point_to_link_json}   infrastructure_network_resolve_point_to_closest_link    infrastructure_link_id
+    Set Test Variable     ${LINK_ID}     ${link_id}
 
-value in response is correct
-    [Arguments]   ${response}   ${data_type}    ${key}    ${expected_value}
-    ${value}     Get value from response by key     ${response}   ${data_type}    ${key}
-    Should Be Equal    ${value}    ${expected_value}
+    ${point_direction_json}   Dict to json    ${point_direction_on_link}[body]
+    ${point_direction}    Get value from response by key     ${point_direction_json}   infrastructure_network_find_point_direction_on_link    value
+    Set Test Variable    ${DIRECTION}     ${point_direction}
 
-starting date should be correct
-    [Arguments]   ${response}
-    ${start_date}     Get value from response by key     ${response}    route_line    validity_start
-    ${start_date_trimmed}   Split String    ${start_date}    T
-    ${converted_date}     Convert date format to utc ymd    ${DATE_TODAY}
-    Should Be Equal    ${start_date_trimmed}[0]    ${converted_date}
+    ${insert_stop_point_json}   Dict to json    ${insert_stop_point}[body]
+    ${located_on_link}    Get value from response by key     ${insert_stop_point_json}   insert_service_pattern_scheduled_stop_point_one    located_on_infrastructure_link_id
+    ${point_direction}          Get value from response by key     ${insert_stop_point_json}   insert_service_pattern_scheduled_stop_point_one    direction
+    Should Be Equal    ${point_direction}    ${DIRECTION}
+    Should Be Equal    ${located_on_link}    ${LINK_ID}
+
+edit new bus stop
+    Click    ${EditStopButton}    force=True
+    Fill Text   ${StopInputNameField}    ${STOP_LABEL}
+    ${latitude}     Get Text   ${StopLatitudeField}
+    Set Test Variable    ${STOP_LATITUDE}    ${latitude}
+    ${longitude}    Get Text   ${StopLongitudeField}
+    Set Test Variable    ${STOP_LONGITUDE}    ${longitude}
+    set indefinite validity period    ${DATE_TODAY}
+    Click         ${StandardPriority}
+    Click   ${SaveStopButton}    force=True
+
+close map modal
+    Click    ${CloseMapModal}
+
