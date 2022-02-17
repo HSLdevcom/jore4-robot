@@ -7,5 +7,3 @@ playwright-log.txt
 output/
 docker/
 run_secrets.sh
-
-

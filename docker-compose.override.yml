@@ -1,0 +1,13 @@
+version: "3.8"
+services:
+  jore4-ui:
+    image: "hsldevcom/jore4-ui:latest"
+  #jore4-hasura:
+  #  image: "hsldevcom/jore4-hasura:seed-fix-seed-data--326c76930b66fb12faa2913d7d738ed8fc61cfaa"
+
+  #jore4-mapmatching: { image: "hsldevcom/jore4-map-matching:latest" },
+  #jore4-auth: { image: "hsldevcom/jore4-auth:latest" },
+  #jore4-mbtiles: {image: },
+  #jore4-jore3importer: {image: },
+  #jore4-testdb: { image: hsldevcom/jore4-postgres:latest },
+  #jore4-mssqltestdb: {image: },
