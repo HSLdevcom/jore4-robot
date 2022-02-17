@@ -1,7 +1,8 @@
 *** Variables ***
 ${RoutesAndLinesHeader}      //*[contains(@class, 'flex hover:bg-brand-darker')][2]
-${OpenModalButton}           //Button[text()='Piirrä reitti']
+${OpenMapButton}             //Button[text()='Avaa kartta']
 ${CreateNewLineButton}       //*[@id='create-line-button']
+${RouteLinePlusButton}       (//*[@stroke="currentColor"])[1]
 
 #new line form
 ${NewLineLabelInput}         //*[@id='label-input']
@@ -18,7 +19,9 @@ ${SaveStopButton}            //Button[text()='Tallenna']
 ${StopLatitudeField}         //*[@name='latitude']
 ${StopLongitudeField}        //*[@name='longitude']
 
+
 #priority and validity period
 ${StandardPriority}          //Button[text()='Perusversio']
 ${ValidityStartInput}        //*[@name='validityStart']
 ${IndefiniteCheckbox}        //*[@id='indefinite']
+${CloseMapModal}             //Button[@class='ml-auto text-base font-bold text-brand']

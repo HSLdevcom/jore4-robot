@@ -4,3 +4,5 @@ Resource      ./test_setup_and_teardownd_keywords.robot
 Resource      ./common_keywords.robot
 Resource      ./login_keywords.robot
 Resource      ./routes_and_lines_keywords.robot
+Resource      ./datetime_keywords.robot
+Resource      ./hasura_keywords.robot

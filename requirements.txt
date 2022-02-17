@@ -1,5 +1,6 @@
 requests
 sgqlc
 pytz
+psycopg2-binary
 robotframework-requests
 robotframework-faker
