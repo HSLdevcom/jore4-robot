@@ -1,2 +1,4 @@
 requests
+sgqlc
 robotframework-requests
+robotframework-faker
