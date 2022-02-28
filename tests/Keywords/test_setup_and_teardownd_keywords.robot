@@ -14,6 +14,8 @@ suite teardown
     Close Browser
 
 set test variables for new line
+    ${today}    Date today
+    Set Test Variable    ${DATE_TODAY}   ${today}
     ${label}    Pyint   max_value=9999
     Set Test Variable    ${NEW_LINE_LABEL}    ${label}
     ${name}    Street Name

@@ -15,4 +15,4 @@ Resource        ../Keywords/Keywords.robot
 #here is list of python libraries
 Library         ../Libraries/common_functions.py
 Library         ../Libraries/hasura_queries.py    ${HASURA_API_URL}
-
+Library         ../Libraries/datetime_functions.py

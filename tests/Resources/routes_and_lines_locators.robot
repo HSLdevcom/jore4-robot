@@ -17,3 +17,8 @@ ${StopInputNameField}        //input[contains(@name, 'finnishName')]
 ${SaveStopButton}            //Button[text()='Tallenna']
 ${StopLatitudeField}         //*[@name='latitude']
 ${StopLongitudeField}        //*[@name='longitude']
+
+#priority and validity period
+${StandardPriority}          //Button[text()='Perusversio']
+${ValidityStartInput}        //*[@name='validityStart']
+${IndefiniteCheckbox}        //*[@id='indefinite']
