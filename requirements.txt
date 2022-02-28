@@ -1,4 +1,5 @@
 requests
 sgqlc
+pytz
 robotframework-requests
 robotframework-faker
