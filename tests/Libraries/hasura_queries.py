@@ -17,7 +17,6 @@ class hasura_queries:
         route_line(where: {label: {_eq: $lineLabel}}){
           name_i18n
           line_id
-          description_i18n
           primary_vehicle_mode
           priority
           short_name_i18n
