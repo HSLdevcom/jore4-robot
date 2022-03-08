@@ -19,9 +19,6 @@ jobs:
 
       - name: start e2e env
         uses: HSLdevcom/jore4-flux/github-actions/setup-e2e-environment@setup-e2e-environment-v1
-        with:
-          ui_version: hsldevcom/jore4-ui:latest
-          hasura_version: hsldevcom/jore4-hasura:seed-fix-seed-data--326c76930b66fb12faa2913d7d738ed8fc61cfaa
 
       - name: run e2e smoke tests
         uses: ./github-actions/run-rf-tests
