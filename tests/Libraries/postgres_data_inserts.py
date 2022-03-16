@@ -2,10 +2,10 @@ import psycopg2
 import os
 
 class postgres_data_inserts:
-    def __init__(self, environemnt, port, name, user, password, infraLinksPath, vehicleSubmodesPath):
+    def __init__(self, environment, port, name, user, password, infraLinksPath, vehicleSubmodesPath):
         self.infraLinksFile = infraLinksPath
         self.vehicleSubmodesFile = vehicleSubmodesPath
-        self.dbAddress = environemnt
+        self.dbAddress = environment
         self.dbPort = port
         self.dbName = name
         self.dbUser = user
@@ -19,7 +19,7 @@ class postgres_data_inserts:
             cur.execute(insertInfraLinks)
             conn.commit()
         except (Exception, psycopg2.DatabaseError) as error:
-              print(error)
+            print(error)
         finally:
             if conn is not None:
                 conn.close()
@@ -33,7 +33,7 @@ class postgres_data_inserts:
             cur.execute(vehicleSubmodes)
             conn.commit()
         except (Exception, psycopg2.DatabaseError) as error:
-              print(error)
+            print(error)
         finally:
             if conn is not None:
                 conn.close()

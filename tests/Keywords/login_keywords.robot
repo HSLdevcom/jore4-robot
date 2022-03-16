@@ -5,10 +5,10 @@ user logs in with hslid
     Click    ${LoginPageSignInButton}
 
 user logs out
-    Click    ${USER_PROFILE_BUTTON}
-    Click    ${USER_DROPDOWN_LOGOUT}
-    Click    ${HSLID_SIGN_OUT_BUTTON}
-    Get Element    ${PLEASE_LOG_IN_TEXT}
+    Click    ${UserProfileButton}
+    Click    ${UserDropdownLogout}
+    Click    ${HslidSignOutButton}
+    Get Element    ${PleaseLogInText}
 
 user should be logged in
     user sees welcome message
