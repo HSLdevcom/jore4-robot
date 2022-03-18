@@ -20,3 +20,39 @@ as a user i want to add a new stop
     when user adds a new bus stop
     then stop should be saved in hasura
     [Teardown]    remove stop from hasura    ${STOP_LABEL}
+
+as a user i want to create a new route
+    [Tags]    map
+    [Setup]   set test variables for creating route
+    given user goes to routes and lines map view
+    when user draws a new route
+    then route is saved in hasura
+         route is shown on line page
+    [Teardown]    Run Keywords    removeRoute    ${route_label}
+
+
+*** Keywords ***
+set test variables for creating route
+    insertNewLineToHasura
+    insertStopToHasura    coordinates for a stop
+    insertStopToHasura    coordinates for a stop
+    set name for route
+    set label for route
+    set line for route
+
+user draws a new route
+    click     add new route
+    set details for route
+    click map at    start coordinates
+    click map at    end coordinate
+    click map at    end coordinate
+    save changes
+
+route is saved in hasura
+    graphql query for route details
+    checkt that details are correct in query
+
+route is shown on line page
+    go to routes and lines page
+    open page for line
+    checkt that line contains new route details
