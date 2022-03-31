@@ -48,7 +48,7 @@ validate stop creation responses
 
 edit new bus stop
     Click    ${EditStopButton}    force=True
-    Fill Text   ${StopInputNameField}    ${STOP_LABEL}
+    Fill Text   ${StopInputLabelField}    ${STOP_LABEL}
     ${latitude}     Get Text   ${StopLatitudeField}
     Set Test Variable    ${STOP_LATITUDE}    ${latitude}
     ${longitude}    Get Text   ${StopLongitudeField}
@@ -59,4 +59,3 @@ edit new bus stop
 
 close map modal
     Click    ${CloseMapModal}
-
