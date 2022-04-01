@@ -3,6 +3,39 @@ on:
   push:
   pull_request:
   workflow_dispatch:
+    inputs:
+      ui_version:
+        description: Version of ui to use (docker image tag). Leave empty for default version.
+        required: false
+        default: ""
+      hasura_version:
+        description: Version of hasura to use (docker image tag). Leave empty for default version.
+        required: false
+        default: ""
+      auth_version:
+        description: Version of auth to use (docker image tag). Leave empty for default version.
+        required: false
+        default: ""
+      mbtiles_version:
+        description: Version of mbtiles server to use (docker image tag). Leave empty for default version.
+        required: false
+        default: ""
+      jore3importer_version:
+        description: Version of jore3importer to use (docker image tag). Leave empty for default version.
+        required: false
+        default: ""
+      testdb_version:
+        description: Version of testdb to use (docker image tag). Leave empty for default version.
+        required: false
+        default: ""
+      mssqltestdb_version:
+        description: Version of mssqltestdb to use (docker image tag). Leave empty for default version.
+        required: false
+        default: ""
+      mapmatching_version:
+        description: Version of map matching service to use (docker image tag). Leave empty for default version.
+        required: false
+        default: ""
 
 jobs:
   run_e2e_tests:
@@ -19,6 +52,15 @@ jobs:
 
       - name: start e2e env
         uses: HSLdevcom/jore4-flux/github-actions/setup-e2e-environment@setup-e2e-environment-v1
+        with:
+          ui_version: ${{ github.event.inputs.ui_version }}
+          hasura_version: ${{ github.event.inputs.hasura_version }}
+          auth_version: ${{ github.event.inputs.auth_version }}
+          mbtiles_version: ${{ github.event.inputs.mbtiles_version }}
+          jore3importer_version: ${{ github.event.inputs.jore3importer_version }}
+          testdb_version: ${{ github.event.inputs.testdb_version }}
+          mssqltestdb_version: ${{ github.event.inputs.mssqltestdb_version }}
+          mapmatching_version: ${{ github.event.inputs.mapmatching_version }}
 
       - name: run e2e smoke tests
         uses: ./github-actions/run-rf-tests
