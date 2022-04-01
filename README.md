@@ -10,12 +10,17 @@ To set up the environment variables for running the tests, create your local cop
 Start up all the microservices using `start_env.sh`. This downloads the latest working set of microservices. If you wish to override some versions or environment variables, you can do so within `docker-compose.override.yml` (See commented examples)
 
 Tests can be run on local machine with `run_tests.sh` script. Running it requires that you have docker installed on your computer, since the tests are run in a docker container. You also need to edit the placeholder variables for username and password in the `run_tests.sh`file, these can be found from the hsl-jore4-common key-vault as secrets.
-In addition the script takes two parameters:
+In addition the script takes three parameters:
 
 1. environment you want to test against (`localhost`, if you are running the services on your machine and `dev` or `test` for dev/test.jore.hsl.fi)
 2. Browser you want to test with (possible browsers `chromium`, `firefox`, `webkit`)
+3. (optional) the tag of the tests that should be run (`"*"`, `smoke`)
 
-For example: `sh run_tests.sh localhost chromium` or `sh run_tests.sh dev webkit`
+Examples:
+- `sh run_tests.sh localhost chromium`
+- `sh run_tests.sh dev webkit`
+- `sh run_tests.sh localhost firefox "*"`
+- `sh run_tests.sh localhost webkit smoke`
 
 Test results are located in tests/output folder after the tests are done.
 
