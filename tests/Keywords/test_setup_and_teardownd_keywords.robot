@@ -13,10 +13,13 @@ setup browser
     New Context    viewport={'width': ${SCREEN_WITDH}, 'height': ${SCREEN_HEIGHT}}
     New Page  ${SUT_URL}
 
-suite teardown
-    user logs out
+reset browser
     Delete All Cookies
     Close Browser
+
+suite teardown
+    user logs out
+    reset browser
 
 set test variables for new line
     ${today}    Date today

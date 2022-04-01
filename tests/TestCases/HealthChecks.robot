@@ -1,7 +1,7 @@
 *** Settings ***
 Resource            ./TestResources.robot
 Suite Setup         setup browser
-Suite Teardown      suite teardown
+Suite Teardown      reset browser
 
 *** Test Cases ***
 health check for test action
