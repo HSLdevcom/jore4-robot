@@ -4,6 +4,8 @@ Tests are implemented using Robot Framework, with Browser library for front-end 
 
 ### How to run tests locally
 
+Start up all the microservices using `start_env.sh`. This downloads the latest working set of microservices. If you wish to override some versions or environment variables, you can do so within `docker-compose.override.yml` (See commented examples)
+
 Tests can be run on local machine with `run_tests.sh` script. Running it requires that you have docker installed on your computer, since the tests are run in a docker container. You also need to edit the placeholder variables for username and password in the `run_tests.sh`file, these can be found from the hsl-jore4-common key-vault as secrets.
 In addition the script takes two parameters:
 
