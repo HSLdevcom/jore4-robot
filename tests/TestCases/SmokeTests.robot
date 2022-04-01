@@ -30,6 +30,11 @@ as a user i want to create a new route
          route is shown on line page
     [Teardown]    Run Keywords    removeRoute    ${route_label}
 
+init db
+    [Tags]    insert_data
+    addInfraLinksToDb
+    addVehicleSubmodesToDb
+    addRoutesToDb
 
 *** Keywords ***
 set test variables for creating route

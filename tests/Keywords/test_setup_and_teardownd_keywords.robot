@@ -10,7 +10,7 @@ log in to jore4
 
 setup browser
     New Browser    ${BROWSER}   headless=true
-    New Context    viewport={'width': ${SCREEN_WITDH}, 'height': ${SCREEN_HEIGHT}}
+    New Context    viewport={'width': ${SCREEN_WITDH}, 'height': ${SCREEN_HEIGHT}}    recordVideo={'dir': '${OUTPUT_DIR}/video'}
     New Page  ${SUT_URL}
 
 reset browser
