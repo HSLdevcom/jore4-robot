@@ -5,6 +5,7 @@ user logs in with hslid
     Click    ${LoginPageSignInButton}
 
 user logs out
+    Go To    ${SUT_URL}
     Click    ${UserProfileButton}
     Click    ${UserDropdownLogout}
     Click    ${HslidSignOutButton}
