@@ -18,8 +18,7 @@ else
 fi
 
 # start up all services (and build on-demand)
-docker-compose -f ./docker/docker-compose.yml up --build -d
-#-f docker-compose.override.yml
+docker-compose -f ./docker/docker-compose.yml -f ./docker/docker-compose.override.yml up --build -d
 
 # start up only some services (and build on-demand)
 # docker-compose -f ./docker/docker-compose.yml up --build jore4-ui jore4-proxy

@@ -1,7 +1,8 @@
 version: "3.8"
 services:
   jore4-ui:
-    image: "hsldevcom/jore4-ui:latest"
+    # image: "hsldevcom/jore4-ui:latest"
+
   #jore4-hasura:
   #  image: "hsldevcom/jore4-hasura:seed-fix-seed-data--326c76930b66fb12faa2913d7d738ed8fc61cfaa"
 

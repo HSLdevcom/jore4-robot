@@ -5,5 +5,7 @@ __pycache__/
 *.xml
 playwright-log.txt
 output/
-docker/
 run_secrets.sh
+
+docker/*
+!docker/docker-compose.override.yml
