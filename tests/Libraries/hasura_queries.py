@@ -52,3 +52,37 @@ class hasura_queries:
       }
       response = self.endpoint(query, variables)
       return json.dumps(response)
+
+    def deleteLineByLabel(self, label):
+      query='''
+      mutation DeleteLineByLabel($label: String!) {
+        delete_route_line(where: {label: {_eq: $label}}) {
+          returning {
+            line_id
+            label
+          }
+        }
+      }
+      '''
+      variables = {
+        'label': str(label),
+      }
+      response = self.endpoint(query, variables)
+      return json.dumps(response)
+
+    def deleteStopByLabel(self, label):
+      query='''
+      mutation DeleteStopByLabel($label: String!) {
+        delete_service_pattern_scheduled_stop_point(where: {label: {_eq: $label}}) {
+          returning {
+            scheduled_stop_point_id
+            label
+          }
+        }
+      }
+      '''
+      variables = {
+        'label': str(label),
+      }
+      response = self.endpoint(query, variables)
+      return json.dumps(response)

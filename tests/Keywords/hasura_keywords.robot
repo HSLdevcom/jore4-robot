@@ -41,3 +41,13 @@ coordinates should be correct
     ${longitude}    Convert To String    ${coordinates}[0]
     Should Be Equal     ${STOP_LATITUDE}     ${latitude}
     Should Be Equal     ${STOP_LONGITUDE}    ${longitude}
+
+remove line from hasura
+    [Arguments]    ${label}
+    Wait Until Network Is Idle
+    ${response}     Delete line by label    ${label}
+
+remove stop from hasura
+    [Arguments]    ${label}
+    Wait Until Network Is Idle
+    ${response}     Delete stop by label    ${label}
