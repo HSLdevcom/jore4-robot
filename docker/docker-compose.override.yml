@@ -3,8 +3,9 @@ services:
   jore4-ui:
     # image: "hsldevcom/jore4-ui:latest"
 
-  #jore4-hasura:
-  #  image: "hsldevcom/jore4-hasura:seed-fix-seed-data--326c76930b66fb12faa2913d7d738ed8fc61cfaa"
+  jore4-hasura:
+    environment:
+      HASURA_GRAPHQL_ENABLE_CONSOLE: "true"
 
   #jore4-mapmatching: { image: "hsldevcom/jore4-map-matching:latest" },
   #jore4-auth: { image: "hsldevcom/jore4-auth:latest" },
