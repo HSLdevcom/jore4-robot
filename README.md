@@ -4,6 +4,9 @@ Tests are implemented using Robot Framework, with Browser library for front-end 
 
 ### How to run tests locally
 
+To set up the environment variables for running the tests, create your local copy of `.env` file: `cp .env-template .env` and fill in the details:
+- the e2e user credentials can be found from the JORE4 Azure `hsl-jore4-vault` key-vault. The secrets are called `ROBOT_HSLID_EMAIL` and `ROBOT_HSLID_PASSWORD`
+
 Start up all the microservices using `start_env.sh`. This downloads the latest working set of microservices. If you wish to override some versions or environment variables, you can do so within `docker-compose.override.yml` (See commented examples)
 
 Tests can be run on local machine with `run_tests.sh` script. Running it requires that you have docker installed on your computer, since the tests are run in a docker container. You also need to edit the placeholder variables for username and password in the `run_tests.sh`file, these can be found from the hsl-jore4-common key-vault as secrets.
@@ -12,7 +15,7 @@ In addition the script takes two parameters:
 1. environment you want to test against (`localhost`, if you are running the services on your machine and `dev` or `test` for dev/test.jore.hsl.fi)
 2. Browser you want to test with (possible browsers `chromium`, `firefox`, `webkit`)
 
-f. ex. `sh run_tests.sh test chromium`
+For example: `sh run_tests.sh localhost chromium` or `sh run_tests.sh dev webkit`
 
 Test results are located in tests/output folder after the tests are done.
 
