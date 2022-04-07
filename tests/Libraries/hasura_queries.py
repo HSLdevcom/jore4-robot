@@ -22,6 +22,7 @@ class hasura_queries:
           short_name_i18n
           validity_end
           validity_start
+          type_of_line
         }
       }
       '''

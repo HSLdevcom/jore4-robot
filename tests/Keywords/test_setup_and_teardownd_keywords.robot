@@ -29,6 +29,7 @@ set test variables for new line
     ${name}    Street Name
     Set Test Variable    ${NEW_LINE_NAME}   ${name}
     Set Test Variable    ${NEW_LINE_PRIMARY_VEHICLE_MODE}    bus
+    Set Test Variable    ${NEW_LINE_TYPE_VALUE}    regional_bus_service
 
 set test variables for new stop
     ${stop_label}    Street Name
