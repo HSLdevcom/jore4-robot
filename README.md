@@ -24,6 +24,11 @@ Examples:
 
 Test results are located in tests/output folder after the tests are done.
 
+In some environments you may get an error about the test run not having enough rights to the `tests` directory. The simplest solution to this is to allow global r/w access to that directory:
+```
+	chmod a+rw tests
+```
+
 ### Developing new tests
 
 When creating new files:
