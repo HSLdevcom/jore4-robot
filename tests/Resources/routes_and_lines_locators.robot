@@ -8,6 +8,8 @@ ${RouteLinePlusButton}       (//*[@stroke="currentColor"])[1]
 ${NewLineLabelInput}         //*[@id='label-input']
 ${NewLineFinnishNameInput}   //*[@id='finnish-name-input']
 ${NewLineVehicleInput}       //*[@id='primary-vehicle-mode-input']
+${NewLineTypeInput}          //*[@data-testid='type-of-line-input']
+${RegionalBusLineTypeOption}    //li[contains(.,'U-linja')]
 ${NewLineSaveButton}         //*[@id='save-button']
 
 #map modal

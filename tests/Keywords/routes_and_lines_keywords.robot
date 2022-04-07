@@ -11,6 +11,8 @@ user creates a new line
 input details for new line
     Fill Text     ${NewLineLabelInput}      ${NEW_LINE_LABEL}
     Fill Text     ${NewLineFinnishNameInput}    ${NEW_LINE_NAME}
+    Click         ${NewLineTypeInput}
+    Click         ${RegionalBusLineTypeOption}
     Click         ${StandardPriority}
     set indefinite validity period    ${DATE_TODAY}
     Click     ${NewLineSaveButton}

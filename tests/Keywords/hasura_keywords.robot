@@ -32,6 +32,7 @@ line details should be correct
     value in response is correct    ${response}   route_line    validity_end            ${None}
     ${priority}  Convert To Integer   10
     value in response is correct    ${response}   route_line    priority                ${priority}
+    value in response is correct    ${response}   route_line    type_of_line            ${NEW_LINE_TYPE_VALUE}
 
 coordinates should be correct
     [Arguments]    ${response}    ${data_type}
