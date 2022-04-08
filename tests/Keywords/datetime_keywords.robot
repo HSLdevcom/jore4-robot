@@ -10,4 +10,4 @@ set indefinite validity period
     [Arguments]    ${start_date}
     ${date_mmddyyyy}    Date as mmddyyyy    ${start_date}
     Type Text     ${ValidityStartInput}     ${date_mmddyyyy}
-    Click     ${IndefiniteCheckbox}
+    Check Checkbox     ${IndefiniteCheckbox}
