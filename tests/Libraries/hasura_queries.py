@@ -23,6 +23,7 @@ class hasura_queries:
           validity_end
           validity_start
           type_of_line
+          transport_target
         }
       }
       '''
