@@ -10,7 +10,9 @@ ${NewLineFinnishNameInput}   //*[@id='finnish-name-input']
 ${NewLineVehicleInput}       //*[@id='primary-vehicle-mode-input']
 ${NewLineTypeInput}          //*[@data-testid='type-of-line-input']
 ${RegionalBusLineTypeOption}    //li[contains(.,'U-linja')]
+${NewTransportTargetInput}   //*[@data-testid='transport-target-input']
 ${NewLineSaveButton}         //*[@id='save-button']
+${HelsinkiInternalTargetOption}  //li[contains(.,'Helsingin sisäinen liikenne')]
 
 #map modal
 ${AddStopButton}             //Button[text()='Lisää pysäkki']

@@ -13,6 +13,8 @@ input details for new line
     Fill Text     ${NewLineFinnishNameInput}    ${NEW_LINE_NAME}
     Click         ${NewLineTypeInput}
     Click         ${RegionalBusLineTypeOption}
+    Click         ${NewTransportTargetInput}
+    Click         ${HelsinkiInternalTargetOption}
     Click         ${StandardPriority}
     set indefinite validity period    ${DATE_TODAY}
     Click     ${NewLineSaveButton}
