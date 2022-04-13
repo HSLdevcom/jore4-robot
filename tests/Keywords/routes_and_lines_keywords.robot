@@ -43,6 +43,11 @@ user clicks on the map to create the stop
     Set Test Variable    ${DIRECTION}     ${point_direction}
 
 validate stop creation response
+
+    [Documentation]   TODO: UI makes multiple requests to hasura when stop is created. We should listen for one where operationName is "InsertStop" and select that. In order to do that we should just figure out way about how to do that... Now this test will break if we add or remove these "unrelated" api calls.
+    # ignore first api call
+    Wait For Response    ${HASURA_API_URL}
+    # wait for reponse of api call where operationName = "InsertStop"
     ${insert_stop_point}   Wait For Response    ${HASURA_API_URL}
 
     ${insert_stop_point_json}   Dict to json    ${insert_stop_point}[body]
