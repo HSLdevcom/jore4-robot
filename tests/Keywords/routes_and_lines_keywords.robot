@@ -1,7 +1,9 @@
 *** Keywords ***
 user goes to routes and lines map view
+    [Documentation]   waits until network is idle, so that map is loaded properly
     Click     ${RoutesAndLinesHeader}
     Click     ${OpenMapButton}
+    Wait Until Network Is Idle
 
 user creates a new line
     Click     ${RoutesAndLinesHeader}
@@ -22,8 +24,6 @@ user opens map modal
     Click    ${OpenModalButton}
 
 user adds a new bus stop
-    [Documentation]   waits until network is idle, so that map is loaded properly
-    Wait Until Network Is Idle
     Click    ${AddStopButton}    force=True
     user clicks on the map to create the stop
     edit new bus stop
@@ -67,7 +67,16 @@ edit new bus stop
     Set Test Variable    ${STOP_LONGITUDE}    ${longitude}
     set indefinite validity period    ${DATE_TODAY}
     Click         ${StandardPriority}
-    Click   ${SaveStopButton}    force=True
+    Click   ${SaveButton}    force=True
 
 close map modal
     Click    ${CloseMapModal}
+
+set details for route
+    Fill Text    ${RouteNameField}    ${ROUTE_NAME}
+    Fill Text    ${RouteLabelField}   ${ROUTE_LABEL}
+    Click    ${LineDropdown}
+    Click    ${Line65DropdownElement}
+    Click         ${StandardPriority}
+    set indefinite validity period    ${DATE_TODAY}
+    Click    ${SaveButton}

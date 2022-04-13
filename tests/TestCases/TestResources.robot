@@ -17,4 +17,4 @@ Library         ../Libraries/common_functions.py
 Library         ../Libraries/hasura_queries.py    ${HASURA_API_URL}
 Library         ../Libraries/datetime_functions.py
 Library         ../Libraries/json_handlers.py
-Library         ../Libraries/postgres_data_inserts.py    ${ENV}   ${TESTDB_PORT}   ${TESTDB_NAME}    ${TESTDB_USER}    ${TESTDB_PASSWORD}    ${INFRA_LINKS_FILE_PATH}    ${VEHICLE_SUBMODES_FILE_PATH}    ${VEHICLE_SUBMODES_FILE_PATH}
+Library         ../Libraries/postgres_data_inserts.py    ${ENV}   ${TESTDB_PORT}   ${TESTDB_NAME}    ${TESTDB_USER}    ${TESTDB_PASSWORD}

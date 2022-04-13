@@ -1,18 +1,12 @@
 version: "3.8"
 services:
-<<<<<<< HEAD:docker/docker-compose.override.yml
   jore4-ui:
-    # image: "hsldevcom/jore4-ui:latest"
+    image: "hsldevcom/jore4-ui:latest"
 
   jore4-hasura:
+    image: "hsldevcom/jore4-hasura:seed-main--20220408-905ffb8eb505ff97920840117b199523a062af75"
     environment:
       HASURA_GRAPHQL_ENABLE_CONSOLE: "true"
-=======
-  #jore4-ui:
-  #  image: "hsldevcom/jore4-ui:latest"
-  jore4-hasura:
-    image: "hsldevcom/jore4-hasura:seed-main--20220311-d6131f9b11d70469e34e39784bbac4dde2ba73cc"
->>>>>>> 335d42e (wip):docker-compose.override.yml
 
   #jore4-mapmatching: { image: "hsldevcom/jore4-map-matching:latest" },
   #jore4-auth: { image: "hsldevcom/jore4-auth:latest" },

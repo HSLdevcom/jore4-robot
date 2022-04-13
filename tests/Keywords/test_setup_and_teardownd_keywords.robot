@@ -1,7 +1,8 @@
 *** Keywords ***
 suite setup for map tests
-    addInfraLinksToDb
-    addVehicleSubmodesToDb
+    insertDataFromSqlFile    ${INFRA_LINKS_FILE_PATH}
+    insertDataFromSqlFile    ${VEHICLE_SUBMODES_FILE_PATH}
+    insertDataFromSqlFile    ${VEHICLE_SUBMODES_FILE_PATH}
     log in to jore4
 
 log in to jore4
@@ -34,5 +35,11 @@ set test variables for new line
 set test variables for new stop
     ${stop_label}    Street Name
     Set Test Variable    ${STOP_LABEL}    ${stop_label}
+    ${today}    Date today
+    Set Test Variable    ${DATE_TODAY}   ${today}
+
+set test variables for creating route
+    Set Test Variable    ${ROUTE_NAME}    reitti
+    Set Test Variable    ${ROUTE_LABEL}   label
     ${today}    Date today
     Set Test Variable    ${DATE_TODAY}   ${today}

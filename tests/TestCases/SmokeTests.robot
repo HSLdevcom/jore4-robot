@@ -14,7 +14,7 @@ as a user i want to create a new line
     [Teardown]    remove line from hasura    ${NEW_LINE_LABEL}
 
 as a user i want to add a new stop
-    [Tags]    map
+    [Tags]    map    stop
     [Setup]   set test variables for new stop
     given user goes to routes and lines map view
     when user adds a new bus stop
@@ -22,13 +22,13 @@ as a user i want to add a new stop
     [Teardown]    remove stop from hasura    ${STOP_LABEL}
 
 as a user i want to create a new route
-    [Tags]    map
+    [Tags]    map    route
     [Setup]   set test variables for creating route
     given user goes to routes and lines map view
     when user draws a new route
-    then route is saved in hasura
-         route is shown on line page
-    [Teardown]    Run Keywords    removeRoute    ${route_label}
+    #then route is saved in hasura
+    #     route is shown on line page
+    #[Teardown]    removeRoute    ${route_label}
 
 init db
     [Tags]    insert_data
@@ -37,21 +37,27 @@ init db
     addRoutesToDb
 
 *** Keywords ***
-set test variables for creating route
-    insertNewLineToHasura
-    insertStopToHasura    coordinates for a stop
-    insertStopToHasura    coordinates for a stop
-    set name for route
-    set label for route
-    set line for route
-
 user draws a new route
-    click     add new route
+    Sleep   30
+    Click     ${DrawRouteButton}
+    Take Screenshot
     set details for route
-    click map at    start coordinates
-    click map at    end coordinate
-    click map at    end coordinate
+    Click    ${MapGlMapBox}   position_x= 805    position_y= 655    force=True
+    Click    ${MapGlMapBox}   position_x= 900    position_y= 585    force=True
+    Click    ${MapGlMapBox}   position_x= 900    position_y= 585    force=True
+    ${response1}   Wait For Response
+    Log    ${response1}
+    ${response2}   Wait For Response
+    Log    ${response2}
+    ${response3}   Wait For Response
+    Log    ${response3}
     save changes
+
+save changes
+    Wait Until Network Is Idle
+    Click    ${SaveRouteButton}   force=True
+    Sleep   1
+    Take Screenshot
 
 route is saved in hasura
     graphql query for route details
@@ -60,4 +66,4 @@ route is saved in hasura
 route is shown on line page
     go to routes and lines page
     open page for line
-    checkt that line contains new route details
+    check that line contains new route details
