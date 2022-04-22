@@ -75,8 +75,10 @@ close map modal
 set details for route
     Fill Text    ${RouteNameField}    ${ROUTE_NAME}
     Fill Text    ${RouteLabelField}   ${ROUTE_LABEL}
+    Click    ${DirectionDropdown}
+    Click    ${DirectionAwayElement}
     Click    ${LineDropdown}
-    Click    ${Line65DropdownElement}
+    Click    //span[text()[contains(.,'${LINE_NAME}')]]
     Click         ${StandardPriority}
-    set indefinite validity period    ${DATE_TODAY}
+    set validity period with ending date   ${DATE_TODAY}    ${DATE_TOMORROW}
     Click    ${SaveButton}

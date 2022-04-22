@@ -1,6 +1,7 @@
 import requests
 import json
 import Browser
+import random
 
 class json_handlers:
 
@@ -17,3 +18,13 @@ class json_handlers:
 
   def dictToJson(self, dict):
     return json.dumps(dict)
+
+  def getRandomElementFromResponse(self, response, dataType):
+    try:
+      data = json.loads(response)
+      elements = data['data'][dataType][0]
+      return random.choice(elements)
+    except KeyError:
+      data = json.loads(response)
+      elements = data['data'][dataType]
+      return random.choice(elements)

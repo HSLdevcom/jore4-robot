@@ -22,19 +22,22 @@ ${EditStopButton}            //Button[text()='Muokkaa']
 
 #edit stop modal
 ${StopInputLabelField}        //input[contains(@name, 'label')]
-${SaveButton}            //Button[text()='Tallenna']
+${SaveButton}                //Button[text()='Tallenna']
 ${StopLatitudeField}         //*[@name='latitude']
 ${StopLongitudeField}        //*[@name='longitude']
-${SaveRouteButton}         //Button[@class="px-4 py-2 font-bold rounded-full text-white bg-brand border border-brand hover:bg-opacity-50 active:bg-opacity-50  undefined"]
+${SaveRouteButton}           //Button[text()='Tallenna reitti']
 
 #draw route details form
 ${RouteNameField}            //*[@id='description_i18n']
 ${RouteLabelField}           //*[@id='label']
-${LineDropdown}              //*[contains(@id, 'headlessui-listbox-button')]
+${DirectionDropdown}         (//*[@id='listbox'])[1]
+${DirectionAwayElement}      //*[text()='1 - Keskustasta pois']
+${LineDropdown}              (//*[@id='listbox'])[2]
 ${Line65DropdownElement}     //span[contains(text(),'65 (Rautatientori - Veräjälaakso)')]
 
 #priority and validity period
 ${StandardPriority}          //Button[text()='Perusversio']
 ${ValidityStartInput}        //*[@name='validityStart']
+${ValidityEndInput}          //*[@name='validityEnd']
 ${IndefiniteCheckbox}        //*[@id='indefinite']
 ${CloseMapModal}             //Button[text()='Sulje']

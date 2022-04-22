@@ -87,3 +87,15 @@ class hasura_queries:
       }
       response = self.endpoint(query, variables)
       return json.dumps(response)
+
+    def getLinesFromHasura(self):
+      query='''
+      query MyQuery {
+        route_line {
+          name_i18n
+          label
+        }
+      }
+      '''
+      response = self.endpoint(query)
+      return json.dumps(response)

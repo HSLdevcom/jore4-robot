@@ -52,3 +52,8 @@ remove stop from hasura
     [Arguments]    ${label}
     Wait Until Network Is Idle
     ${response}     Delete stop by label    ${label}
+
+get random line name and label from hasura
+    ${routes}    getLinesFromHasura
+    ${route}    getRandomElementFromResponse   ${routes}    route_line
+    [Return]    ${route}

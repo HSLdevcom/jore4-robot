@@ -5,6 +5,10 @@ def dateToday():
   today = datetime.datetime.now()
   return today
 
+def dateTomorrow():
+  tomorrow = datetime.datetime.now() + datetime.timedelta(days=1)
+  return tomorrow
+
 def dateAsMmddyyyy(date):
   return date.strftime("%m.%d.%Y")
 

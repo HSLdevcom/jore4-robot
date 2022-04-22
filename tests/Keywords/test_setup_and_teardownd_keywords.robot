@@ -39,7 +39,16 @@ set test variables for new stop
     Set Test Variable    ${DATE_TODAY}   ${today}
 
 set test variables for creating route
-    Set Test Variable    ${ROUTE_NAME}    reitti
-    Set Test Variable    ${ROUTE_LABEL}   label
+    ${line_name_and_label}    get random line name and label from hasura
+    ${line_name}   Get From Dictionary   ${line_name_and_label}    name_i18n
+    ${line_label}    Get From Dictionary   ${line_name_and_label}    label
+    Set Test Variable    ${LINE_NAME}    ${line_name}
+    Set Test Variable    ${LINE_LABEL}   ${line_label}
+    ${route_name}   Street Name
+    ${route_label}    Pyint   max_value=9999
+    Set Test Variable    ${ROUTE_NAME}    ${route_name}
+    Set Test Variable    ${ROUTE_LABEL}   ${route_label}
     ${today}    Date today
+    ${tomorrow}    Date tomorrow
     Set Test Variable    ${DATE_TODAY}   ${today}
+    Set Test Variable    ${DATE_TOMORROW}   ${tomorrow}

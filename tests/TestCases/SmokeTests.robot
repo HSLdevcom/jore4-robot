@@ -27,24 +27,16 @@ as a user i want to create a new route
     given user goes to routes and lines map view
     when user draws a new route
     #then route is saved in hasura
-    #     route is shown on line page
     #[Teardown]    removeRoute    ${route_label}
-
-init db
-    [Tags]    insert_data
-    addInfraLinksToDb
-    addVehicleSubmodesToDb
-    addRoutesToDb
 
 *** Keywords ***
 user draws a new route
-    Sleep   30
     Click     ${DrawRouteButton}
-    Take Screenshot
     set details for route
-    Click    ${MapGlMapBox}   position_x= 805    position_y= 655    force=True
-    Click    ${MapGlMapBox}   position_x= 900    position_y= 585    force=True
-    Click    ${MapGlMapBox}   position_x= 900    position_y= 585    force=True
+    Click    ${MapGlMapBox}   position_x= 800    position_y= 638    force=True
+    Click    ${MapGlMapBox}   position_x= 870    position_y= 590    force=True
+    Click    ${MapGlMapBox}   position_x= 870    position_y= 590    force=True
+    Take Screenshot
     ${response1}   Wait For Response
     Log    ${response1}
     ${response2}   Wait For Response
@@ -55,15 +47,12 @@ user draws a new route
 
 save changes
     Wait Until Network Is Idle
+    Wait For Elements State    ${SaveRouteButton}   enabled    timeout=20 s
     Click    ${SaveRouteButton}   force=True
-    Sleep   1
+    ${response1}   Wait For Response
+    Log    ${response1}
     Take Screenshot
 
 route is saved in hasura
     graphql query for route details
     checkt that details are correct in query
-
-route is shown on line page
-    go to routes and lines page
-    open page for line
-    check that line contains new route details
