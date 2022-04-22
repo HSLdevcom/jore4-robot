@@ -33,15 +33,14 @@ as a user i want to create a new route
 user draws a new route
     Click     ${DrawRouteButton}
     set details for route
-    Click    ${MapGlMapBox}   position_x= 800    position_y= 638    force=True
-    Click    ${MapGlMapBox}   position_x= 870    position_y= 590    force=True
-    Click    ${MapGlMapBox}   position_x= 870    position_y= 590    force=True
-    Take Screenshot
-    ${response1}   Wait For Response
+    Click    ${MapGlMapBox}   position_x= 805    position_y= 650    force=True
+    Click    ${MapGlMapBox}   position_x= 880    position_y= 600    force=True
+    Click    ${MapGlMapBox}   position_x= 880    position_y= 600    force=True
+    ${response1}   Wait For Response    response => response.body() === 'body'    timeout=20s
     Log    ${response1}
-    ${response2}   Wait For Response
+    ${response2}   Wait For Response    timeout=20s
     Log    ${response2}
-    ${response3}   Wait For Response
+    ${response3}   Wait For Response    timeout=20s
     Log    ${response3}
     save changes
 
