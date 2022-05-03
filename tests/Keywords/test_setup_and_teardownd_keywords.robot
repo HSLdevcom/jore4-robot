@@ -1,7 +1,7 @@
 *** Keywords ***
 suite setup for map tests
-    addInfraLinksToDb
-    addVehicleSubmodesToDb
+    seedDbWithFile    ${INFRA_LINKS_FILE_PATH}
+    seedDbWithFile    ${VEHICLE_SUBMODES_FILE_PATH}
     log in to jore4
 
 log in to jore4
