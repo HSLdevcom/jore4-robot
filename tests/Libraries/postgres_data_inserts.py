@@ -2,35 +2,19 @@ import psycopg2
 import os
 
 class postgres_data_inserts:
-    def __init__(self, environment, port, name, user, password, infraLinksPath, vehicleSubmodesPath):
-        self.infraLinksFile = infraLinksPath
-        self.vehicleSubmodesFile = vehicleSubmodesPath
+    def __init__(self, environment, port, name, user, password):
         self.dbAddress = environment
         self.dbPort = port
         self.dbName = name
         self.dbUser = user
         self.dbPassword = password
 
-    def addInfraLinksToDb(self):
-        insertInfraLinks = open(self.infraLinksFile, "r").read()
+    def seedDbWithFile(self, fileName):
+        data = open(fileName, "r").read()
         try:
             conn = psycopg2.connect(host=self.dbAddress, port=self.dbPort, database=self.dbName, user=self.dbUser, password=self.dbPassword)
             cur = conn.cursor()
-            cur.execute(insertInfraLinks)
-            conn.commit()
-        except (Exception, psycopg2.DatabaseError) as error:
-            print(error)
-        finally:
-            if conn is not None:
-                conn.close()
-                print('Database connection closed.')
-
-    def addVehicleSubmodesToDb(self):
-        vehicleSubmodes = open(self.vehicleSubmodesFile, "r").read()
-        try:
-            conn = psycopg2.connect(host=self.dbAddress, port=self.dbPort, database=self.dbName, user=self.dbUser, password=self.dbPassword)
-            cur = conn.cursor()
-            cur.execute(vehicleSubmodes)
+            cur.execute(data)
             conn.commit()
         except (Exception, psycopg2.DatabaseError) as error:
             print(error)
