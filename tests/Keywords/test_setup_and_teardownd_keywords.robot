@@ -2,7 +2,7 @@
 suite setup for map tests
     insertDataFromSqlFile    ${INFRA_LINKS_FILE_PATH}
     insertDataFromSqlFile    ${VEHICLE_SUBMODES_FILE_PATH}
-    insertDataFromSqlFile    ${VEHICLE_SUBMODES_FILE_PATH}
+    insertDataFromSqlFile    ${ROUTES_AND_STOPS_FILE_PATH}
     log in to jore4
 
 log in to jore4
