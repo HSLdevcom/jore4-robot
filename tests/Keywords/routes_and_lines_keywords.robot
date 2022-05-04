@@ -73,3 +73,23 @@ edit new bus stop
 
 close map modal
     Click    ${CloseMapModal}
+
+user goes to line details page
+    Click    ${RoutesAndLinesHeader}
+    Click    ${LineTableRow}
+
+line details are visible
+    Get text    ${LineInfoElement}    ==    Linja 66\n66x\nVeräjälaakso - Rautatientori\n1.1.2021 - 13.12.2023
+    Get text    ${DirectionBadge}    ==    1\n66x
+    Get text    ${LineNameElement}    ==    Veräjälaakso - Rautatientori
+    Get text    ${LinePrimaryVehicleModeElement}    ==    Bussi
+    Get text    ${LineLabelElement}    ==    66
+    Get text    ${TypeOfLineElement}    ==    U-linja
+    Get text    ${TransportTargetElement}    ==    Helsingin sisäinen liikenne
+    Get text    ${RouteNameElement}    ==    Reitti A - B
+    Get text    ${RouteValidityPeriodElement}    ==    Voimassa 1.1.2021 - 13.12.2023
+    Click       ${ShowRouteStopsButton}
+    Get text    ${RouteStopLabelElement}    ==    H1234
+    Get text    ${RouteStopValidityPeriodElement}    ==    Voimassa 1.1.2021 - 13.12.2023
+    Get text    ${StopNotOnRouteValidityLabel}    ==    H1235
+    Get text    ${StopNotOnRouteValidityPeriodElement}    ==    Ei reitin käytössä

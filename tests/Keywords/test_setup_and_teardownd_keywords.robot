@@ -37,3 +37,7 @@ set test variables for new stop
     Set Test Variable    ${STOP_LABEL}    ${stop_label}
     ${today}    Date today
     Set Test Variable    ${DATE_TODAY}   ${today}
+
+setup routes and lines
+    seedDbWithFile    ${ROUTES_FILE_PATH}
+    Go To    ${SUT_URL}

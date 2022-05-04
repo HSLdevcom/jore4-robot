@@ -33,3 +33,23 @@ ${StandardPriority}          //Button[text()='Perusversio']
 ${ValidityStartInput}        //*[@name='validityStart']
 ${IndefiniteCheckbox}        //*[@id='indefinite']
 ${CloseMapModal}             //Button[text()='Sulje']
+
+
+#routes and lines page
+${LineTableRow}              //*[text()='Veräjälaakso - Rautatientori']
+
+#line page
+${LineInfoElement}                       //*[contains(@class, 'container mx-auto py-12 undefined')]
+${DirectionBadge}                        //*[contains(@class, 'border-l-8 py-4 pl-16 pr-4 text-3xl font-bold')]
+${LineNameElement}                       (//*[contains(@class, 'text-3xl font-semibold')])[2]
+${LinePrimaryVehicleModeElement}         (//*[contains(@class, 'text-3xl font-semibold')])[3]
+${LineLabelElement}                      (//*[contains(@class, 'text-3xl font-semibold')])[4]
+${TypeOfLineElement}                     (//*[contains(@class, 'text-3xl font-semibold')])[5]
+${TransportTargetElement}                (//*[contains(@class, 'text-3xl font-semibold')])[6]
+${RouteNameElement}                      //*[contains(@class, 'flex items-center py-4 text-3xl')]
+${RouteValidityPeriodElement}            //*[contains(@class, 'pr-16 text-right')]
+${ShowRouteStopsButton}                  //*[@data-testid='RouteStopsHeaderRow::toggleAccordion']
+${RouteStopLabelElement}                 ((//tr[contains(@class, 'border border-l-8')])[1]//*)[1]
+${RouteStopValidityPeriodElement}        ((//tr[contains(@class, 'border border-l-8')])[1]//*)[3]
+${StopNotOnRouteValidityLabel}           ((//tr[contains(@class, 'border border-l-8 bg-background text-dark-grey')])[1]//*)[1]
+${StopNotOnRouteValidityPeriodElement}   ((//tr[contains(@class, 'border border-l-8 bg-background text-dark-grey')])[1]//*)[3]
