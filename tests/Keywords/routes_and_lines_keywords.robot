@@ -73,3 +73,31 @@ edit new bus stop
 
 close map modal
     Click    ${CloseMapModal}
+
+user goes to line details page
+    Click    ${RoutesAndLinesHeader}
+    Click   //*[text()='${LineNameValue}']
+
+line page has correct content
+    line details are visible
+    stops for route are correct
+
+line details are visible
+    Get text    ${LineHeadingElement}    ==    ${LineHeadingValue}
+    Get text    ${LineHeaderName}    ==    ${LineNameValue}
+    Get text    ${LineHeaderValidityPeriod}    ==    ${LineHeaderValidityPeriodValue}
+    Get text    ${DirectionBadge}    ==    ${DirectionBadgeValue}
+    Get text    ${LineNameElement}    ==    ${LineNameValue}
+    Get text    ${LinePrimaryVehicleModeElement}    ==    ${LinePrimaryVehicleModeValue}
+    Get text    ${LineLabelElement}    ==    ${LineLabelValue}
+    Get text    ${TypeOfLineElement}    ==    ${TypeOfLineValue}
+    Get text    ${TransportTargetElement}    ==    ${TransportTargetValue}
+    Get text    ${RouteNameElement}    ==    ${RouteNameValue}
+    Get text    ${RouteValidityPeriodElement}    ==    ${RouteValidityPeriodValue}
+
+stops for route are correct
+    Click       ${ShowRouteStopsButton}
+    Get text    ${RouteStopLabelElement}    ==    ${RouteStopLabelValue}
+    Get text    ${RouteStopValidityPeriodElement}    ==    ${RouteStopValidityPeriodValue}
+    Get text    ${StopNotOnRouteValidityLabel}    ==    ${StopNotOnRouteValidityLabelValue}
+    Get text    ${StopNotOnRouteValidityPeriodElement}    ==    ${StopNotOnRouteValidityPeriodValue}
