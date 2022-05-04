@@ -33,3 +33,26 @@ ${StandardPriority}          //Button[text()='Perusversio']
 ${ValidityStartInput}        //*[@name='validityStart']
 ${IndefiniteCheckbox}        //*[@id='indefinite']
 ${CloseMapModal}             //Button[text()='Sulje']
+
+
+#routes and lines page
+${LineTableRow}              //*[text()='Veräjälaakso - Rautatientori']
+
+#line page
+${LineHeadingElement}                    //*[@data-testid='line-page-heading']
+${LineHeaderName}                        //*[@data-testid='line-header-name']
+${LineHeaderValidityPeriod}              //*[@data-testid='line-header-validity-period']
+${LineNameElement}                       //*[@data-testid='line-details-name']
+${LinePrimaryVehicleModeElement}         //*[@data-testid='line-details-primary-vehicle-mode']
+${LineLabelElement}                      //*[@data-testid='line-details-label']
+${TypeOfLineElement}                     //*[@data-testid='line-details-type-of-line']
+${TransportTargetElement}                //*[@data-testid='line-details-transport-target']
+${DirectionBadge}                        //*[@data-testid='direction-value']
+${RouteLabelElement}                     //*[@data-testid='route-row-label']
+${RouteNameElement}                      //*[@data-testid='route-row-name']
+${RouteValidityPeriodElement}            //*[@data-testid='route-row-validity-period']
+${ShowRouteStopsButton}                  //*[@data-testid='RouteStopsHeaderRow::toggleAccordion']
+${RouteStopLabelElement}                 (//*[@data-testid='stop-row-label'])[1]
+${RouteStopValidityPeriodElement}        (//*[@data-testid='stop-row-validity-period'])[1]
+${StopNotOnRouteValidityLabel}           (//*[@data-testid='stop-row-label'])[2]
+${StopNotOnRouteValidityPeriodElement}   (//*[@data-testid='stop-row-validity-period'])[2]

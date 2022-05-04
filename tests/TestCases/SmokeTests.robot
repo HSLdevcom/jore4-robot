@@ -20,3 +20,9 @@ as a user i want to add a new stop
     when user adds a new bus stop
     then stop should be saved in hasura
     [Teardown]    remove stop from hasura    ${STOP_LABEL}
+
+as a user i want to see line details
+    [Tags]    line    line page
+    [Setup]   setup routes and lines
+    given user goes to line details page
+    then line details are visible
