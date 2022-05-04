@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   jore4-ui:
-    image: "hsldevcom/jore4-ui:main--20220420-97f1ed94f9dcabbce4d831de56eb89955964bbb6"
+    image: "hsldevcom/jore4-ui:main--20220429-ac08210a75e4ea4510cb94dae05e89669381e605"
 
   jore4-hasura:
     image: "hsldevcom/jore4-hasura:seed-main--20220408-905ffb8eb505ff97920840117b199523a062af75"

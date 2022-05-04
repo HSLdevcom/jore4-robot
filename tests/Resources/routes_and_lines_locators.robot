@@ -26,6 +26,7 @@ ${SaveButton}                //Button[text()='Tallenna']
 ${StopLatitudeField}         //*[@name='latitude']
 ${StopLongitudeField}        //*[@name='longitude']
 ${SaveRouteButton}           //Button[text()='Tallenna reitti']
+${ZoomInButton}              //Button[@title='Zoom In']
 
 #draw route details form
 ${RouteNameField}            //*[@id='description_i18n']
