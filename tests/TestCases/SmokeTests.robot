@@ -10,7 +10,7 @@ as a user i want to create a new line
     [Tags]    line
     [Setup]   set test variables for new line
     given user creates a new line
-    then line should be saved in db
+    then new line should be saved in db
     [Teardown]    remove line from hasura    ${NEW_LINE_LABEL}
 
 as a user i want to add a new stop
@@ -27,3 +27,10 @@ as a user i want to see line details
     given user goes to line details page
     then line page has correct content
 
+as a user i want to edit line details
+    [Tags]    line    line edit
+    [Setup]   Run Keywords    setup routes and lines
+                              set test variables for edited line
+    given user edits line
+    then edited line should be saved in db
+    [Teardown]    remove line from hasura    ${NEW_LINE_LABEL}

@@ -78,6 +78,10 @@ user goes to line details page
     Click    ${RoutesAndLinesHeader}
     Click   //*[text()='${LineNameValue}']
 
+user goes to line edit page
+    user goes to line details page
+    Click    ${EditLineButton}
+
 line page has correct content
     line details are visible
     stops for route are correct
@@ -101,3 +105,20 @@ stops for route are correct
     Get text    ${RouteStopValidityPeriodElement}    ==    ${RouteStopValidityPeriodValue}
     Get text    ${StopNotOnRouteValidityLabel}    ==    ${StopNotOnRouteValidityLabelValue}
     Get text    ${StopNotOnRouteValidityPeriodElement}    ==    ${StopNotOnRouteValidityPeriodValue}
+
+user edits line
+    user goes to line edit page
+    user fills line information
+
+user fills line information
+    Fill Text             ${NewLineLabelInput}      ${NEW_LINE_LABEL}
+    Fill Text             ${NewLineFinnishNameInput}    ${NEW_LINE_NAME}
+    Click                 ${NewLineVehicleModeInput}
+    Click                 ${TrainVehicleTypeOption}
+    Click                 ${NewLineTypeInput}
+    Click                 ${RegionalRailLineTypeOption}
+    Click                 ${NewTransportTargetInput}
+    Click                 ${EspooRegionalTargetOption}
+    Click                 ${StandardPriority}
+    set validity period   ${VALIDITY_START_DATE}   ${VALIDITY_END_DATE}
+    Click                 ${NewLineSaveButton}
