@@ -4,11 +4,11 @@ value in response is correct
     ${value}     Get value from response by key     ${response}   ${data_type}    ${key}
     Should Be Equal    ${value}    ${expected_value}
 
-line should be saved in db
+new line should be saved in db
     Wait Until Network Is Idle
     Sleep    1
     ${response}   Get line details from hasura    ${NEW_LINE_LABEL}
-    line details should be correct    ${response}
+    new line details should be correct    ${response}
 
 stop should be saved in hasura
     Wait Until Network Is Idle
@@ -24,7 +24,7 @@ stop details should be correct
     ${priority}  Convert To Integer   10
     value in response is correct    ${response}   service_pattern_scheduled_stop_point    priority    ${priority}
 
-line details should be correct
+new line details should be correct
     [Arguments]   ${response}
     starting date should be correct    ${response}    route_line
     value in response is correct    ${response}   route_line    name_i18n               ${NEW_LINE_NAME}
@@ -53,3 +53,19 @@ remove stop from hasura
     [Arguments]    ${label}
     Wait Until Network Is Idle
     ${response}     Delete stop by label    ${label}
+
+edited line should be saved in db
+    Wait Until Network Is Idle
+    Sleep    1
+    ${response}   Get line details from hasura    ${NEW_LINE_LABEL}
+    edited line details should be correct    ${response}
+
+edited line details should be correct
+    [Arguments]   ${response}
+    validity period should be correct    ${response}    route_line
+    value in response is correct    ${response}   route_line    name_i18n               ${NEW_LINE_NAME}
+    value in response is correct    ${response}   route_line    primary_vehicle_mode    ${NEW_LINE_PRIMARY_VEHICLE_MODE}
+    ${priority}  Convert To Integer   10
+    value in response is correct    ${response}   route_line    priority                ${priority}
+    value in response is correct    ${response}   route_line    type_of_line            ${NEW_LINE_TYPE_VALUE}
+    value in response is correct    ${response}   route_line    transport_target        ${NEW_TRANSPORT_TARGET_VALUE}
