@@ -5,14 +5,17 @@ ${CreateNewLineButton}       //*[@id='create-line-button']
 ${RouteLinePlusButton}       (//*[@stroke="currentColor"])[1]
 
 #new line form
-${NewLineLabelInput}         //*[@id='label-input']
-${NewLineFinnishNameInput}   //*[@id='finnish-name-input']
-${NewLineVehicleInput}       //*[@id='primary-vehicle-mode-input']
-${NewLineTypeInput}          //*[@data-testid='type-of-line-input']
-${RegionalBusLineTypeOption}    //li[contains(.,'U-linja')]
-${NewTransportTargetInput}   //*[@data-testid='transport-target-input']
-${NewLineSaveButton}         //*[@id='save-button']
-${HelsinkiInternalTargetOption}  //li[contains(.,'Helsingin sisäinen liikenne')]
+${NewLineLabelInput}              //*[@id='label-input']
+${NewLineFinnishNameInput}        //*[@id='finnish-name-input']
+${NewLineVehicleModeInput}        //*[@data-testid='primary-vehicle-mode-input']
+${TrainVehicleTypeOption}         //li[contains(.,'Juna')]
+${NewLineTypeInput}               //*[@data-testid='type-of-line-input']
+${RegionalBusLineTypeOption}      //li[contains(.,'U-linja')]
+${RegionalRailLineTypeOption}     //li[contains(.,'Seudullinen juna')]
+${NewTransportTargetInput}        //*[@data-testid='transport-target-input']
+${NewLineSaveButton}              //*[@id='save-button']
+${HelsinkiInternalTargetOption}   //li[contains(.,'Helsingin sisäinen liikenne')]
+${EspooRegionalTargetOption}      //li[contains(.,'Espoon seudullinen liikenne')]
 
 #map modal
 ${AddStopButton}             //Button[text()='Lisää pysäkki']
@@ -31,12 +34,14 @@ ${StopLongitudeField}        //*[@name='longitude']
 #priority and validity period
 ${StandardPriority}          //Button[text()='Perusversio']
 ${ValidityStartInput}        //*[@name='validityStart']
+${ValidityEndInput}          //*[@name='validityEnd']
 ${IndefiniteCheckbox}        //*[@id='indefinite']
 ${CloseMapModal}             //Button[text()='Sulje']
 
 
 #routes and lines page
 ${LineTableRow}              //*[text()='Veräjälaakso - Rautatientori']
+${LineTableRow2}             //*[text()='Rautatientori - Malmi as.']
 
 #line page
 ${LineHeadingElement}                    //*[@data-testid='line-page-heading']
@@ -56,3 +61,4 @@ ${RouteStopLabelElement}                 (//*[@data-testid='stop-row-label'])[1]
 ${RouteStopValidityPeriodElement}        (//*[@data-testid='stop-row-validity-period'])[1]
 ${StopNotOnRouteValidityLabel}           (//*[@data-testid='stop-row-label'])[2]
 ${StopNotOnRouteValidityPeriodElement}   (//*[@data-testid='stop-row-validity-period'])[2]
+${EditLineButton}                        //*[@data-testid='edit-line-button']

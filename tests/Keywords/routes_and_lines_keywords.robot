@@ -95,3 +95,19 @@ line details are visible
     Get text    ${RouteStopValidityPeriodElement}    ==    Voimassa 1.1.2021 - 13.12.2023
     Get text    ${StopNotOnRouteValidityLabel}    ==    H1235
     Get text    ${StopNotOnRouteValidityPeriodElement}    ==    Ei reitin käytössä
+
+user edits line
+    Click                 ${RoutesAndLinesHeader}
+    Click                 ${LineTableRow2}
+    Click                 ${EditLineButton}
+    Fill Text             ${NewLineLabelInput}      ${NEW_LINE_LABEL}
+    Fill Text             ${NewLineFinnishNameInput}    ${NEW_LINE_NAME}
+    Click                 ${NewLineVehicleModeInput}
+    Click                 ${TrainVehicleTypeOption}
+    Click                 ${NewLineTypeInput}
+    Click                 ${RegionalRailLineTypeOption}
+    Click                 ${NewTransportTargetInput}
+    Click                 ${EspooRegionalTargetOption}
+    Click                 ${StandardPriority}
+    set validity period   ${VALIDITY_START_DATE}   ${VALIDITY_END_DATE}
+    Click                 ${NewLineSaveButton}

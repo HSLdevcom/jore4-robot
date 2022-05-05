@@ -41,3 +41,18 @@ set test variables for new stop
 setup routes and lines
     seedDbWithFile    ${ROUTES_FILE_PATH}
     Go To    ${SUT_URL}
+
+setup line edit
+    setup routes and lines
+    set test variables for edited line
+
+set test variables for edited line
+    Set Test Variable    ${VALIDITY_START_DATE}   01012000
+    Set Test Variable    ${VALIDITY_END_DATE}   01012064
+    ${label}    Pyint   max_value=9999
+    Set Test Variable    ${NEW_LINE_LABEL}    ${label}
+    ${name}    Street Name
+    Set Test Variable    ${NEW_LINE_NAME}   ${name}
+    Set Test Variable    ${NEW_LINE_PRIMARY_VEHICLE_MODE}    train
+    Set Test Variable    ${NEW_LINE_TYPE_VALUE}    regional_rail_service
+    Set Test Variable    ${NEW_TRANSPORT_TARGET_VALUE}    espoo_regional_traffic
