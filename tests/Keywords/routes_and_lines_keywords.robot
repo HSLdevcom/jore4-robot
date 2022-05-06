@@ -82,6 +82,10 @@ user goes to line edit page
     user goes to line details page
     Click    ${EditLineButton}
 
+user goes to route edit page
+    user goes to line details page
+    Click    ${EditRouteButton}
+
 line page has correct content
     line details are visible
     stops for route are correct
@@ -119,6 +123,19 @@ user fills line information
     Click                 ${RegionalRailLineTypeOption}
     Click                 ${NewTransportTargetInput}
     Click                 ${EspooRegionalTargetOption}
+    Click                 ${StandardPriority}
+    set validity period   ${VALIDITY_START_DATE}   ${VALIDITY_END_DATE}
+    Click                 ${NewLineSaveButton}
+
+user edits route
+    user goes to route edit page
+    user fills route information
+
+user fills route information
+    Fill Text             ${RouteLabelInput}      ${NEW_ROUTE_LABEL}
+    Fill Text             ${RouteNameInput}    ${NEW_ROUTE_NAME}
+    Click                 ${RouteDirectionInput}
+    Click                 ${Direction2Option}
     Click                 ${StandardPriority}
     set validity period   ${VALIDITY_START_DATE}   ${VALIDITY_END_DATE}
     Click                 ${NewLineSaveButton}

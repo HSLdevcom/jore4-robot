@@ -69,3 +69,22 @@ edited line details should be correct
     value in response is correct    ${response}   route_line    priority                ${priority}
     value in response is correct    ${response}   route_line    type_of_line            ${NEW_LINE_TYPE_VALUE}
     value in response is correct    ${response}   route_line    transport_target        ${NEW_TRANSPORT_TARGET_VALUE}
+
+edited route should be saved in db
+    Wait Until Network Is Idle
+    Sleep    1
+    ${response}   getRouteDetailsFromHasura    ${NEW_ROUTE_LABEL}
+    edited route details should be correct    ${response}
+
+edited route details should be correct
+    [Arguments]   ${response}
+    validity period should be correct    ${response}    route_route
+    value in response is correct    ${response}   route_route    description_i18n    ${NEW_ROUTE_NAME}
+    value in response is correct    ${response}   route_route    direction    ${NEW_ROUTE_DIRECTION}
+    ${priority}  Convert To Integer   10
+    value in response is correct    ${response}   route_route    priority                ${priority}
+
+remove route from hasura
+    [Arguments]    ${label}
+    Wait Until Network Is Idle
+    ${response}     deleteRouteByLabel    ${label}

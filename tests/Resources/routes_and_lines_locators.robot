@@ -58,3 +58,10 @@ ${RouteStopValidityPeriodElement}        (//*[@data-testid='stop-row-validity-pe
 ${StopNotOnRouteValidityLabel}           (//*[@data-testid='stop-row-label'])[2]
 ${StopNotOnRouteValidityPeriodElement}   (//*[@data-testid='stop-row-validity-period'])[2]
 ${EditLineButton}                        //*[@data-testid='edit-line-button']
+${EditRouteButton}                       //*[@data-testid='edit-route-button']
+
+#edit route form
+${RouteLabelInput}                //*[@id='label']
+${RouteNameInput}                 //*[@id='description_i18n']
+${RouteDirectionInput}            //*[@data-testid='enum-dropdown']
+${Direction2Option}               //li[contains(.,'2 - Keskustaan päin')]

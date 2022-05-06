@@ -53,3 +53,17 @@ set test variables for edited line
     Set Test Variable    ${NEW_LINE_PRIMARY_VEHICLE_MODE}    train
     Set Test Variable    ${NEW_LINE_TYPE_VALUE}    regional_rail_service
     Set Test Variable    ${NEW_TRANSPORT_TARGET_VALUE}    espoo_regional_traffic
+
+setup route edit
+    setup routes and lines
+    set test variables for edited route
+
+set test variables for edited route
+    Set Test Variable    ${LineNameValue}   Rautatientori - Nikkilä
+    Set Test Variable    ${VALIDITY_START_DATE}   03032021
+    Set Test Variable    ${VALIDITY_END_DATE}   01012023
+    ${label}    Pyint   max_value=9999
+    Set Test Variable    ${NEW_ROUTE_LABEL}    ${label}
+    ${name}    Street Name
+    Set Test Variable    ${NEW_ROUTE_NAME}   ${name}
+    Set Test Variable    ${NEW_ROUTE_DIRECTION}   inbound

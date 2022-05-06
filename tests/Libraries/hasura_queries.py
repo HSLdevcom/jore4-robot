@@ -55,6 +55,25 @@ class hasura_queries:
       response = self.endpoint(query, variables)
       return json.dumps(response)
 
+    def getRouteDetailsFromHasura(self, label):
+      query='''
+      query ($routeLabel: String!) {
+        route_route(where: {label: {_eq: $routeLabel}}){
+          description_i18n
+          direction
+          label
+          priority
+          validity_end
+          validity_start
+        }
+      }
+      '''
+      variables = {
+        'routeLabel': str(label),
+      }
+      response = self.endpoint(query, variables)
+      return json.dumps(response)
+
     def deleteLineByLabel(self, label):
       query='''
       mutation DeleteLineByLabel($label: String!) {
@@ -78,6 +97,23 @@ class hasura_queries:
         delete_service_pattern_scheduled_stop_point(where: {label: {_eq: $label}}) {
           returning {
             scheduled_stop_point_id
+            label
+          }
+        }
+      }
+      '''
+      variables = {
+        'label': str(label),
+      }
+      response = self.endpoint(query, variables)
+      return json.dumps(response)
+
+    def deleteRouteByLabel(self, label):
+      query='''
+      mutation DeleteRouteByLabel($label: String!) {
+        delete_route_route(where: {label: {_eq: $label}}) {
+          returning {
+            route_id
             label
           }
         }
