@@ -3,7 +3,7 @@ INSERT INTO route.line
 VALUES
   ('faa23d33-8a0f-4a9c-aa35-b9e92fd4167c','Veräjälaakso - Rautatientori','Veräjälaakso - Rautatientori','bus','66','regional_bus_service','helsinki_internal_traffic',10,'2021-01-01','2023-12-13'),
   ('9058c328-efdd-412c-9b2b-37b0f6a2c6fb','Rautatientori - Malmi as.','Rautatientori - Malmi as.','bus','71','regional_bus_service','helsinki_internal_traffic',10,'2021-01-01','2023-12-13'),
-  ('bbd1cb29-74c3-4fa1-ac86-918d7fa96fe2','Rautatientori - Nikkilä','Rautatientori - Nikkilä','bus','785K','regional_bus_service','helsinki_internal_traffic',10,'2021-01-01','2023-12-13'),
+  ('bbd1cb29-74c3-4fa1-ac86-918d7fa96fe2','Rautatientori - Nikkilä','Rautatientori - Nikkilä','bus','785K','regional_bus_service','helsinki_internal_traffic',10,'2021-01-01','2050-12-13'),
   ('db748c5c-42e3-429f-baa0-e0db227dc2c8','Erottaja - Arkkadiankatu','Erottaja - Arkkadiankatu','bus','1234','regional_bus_service','helsinki_internal_traffic',10,'2021-01-01','2023-12-13')
 ON CONFLICT DO NOTHING;
 
@@ -30,7 +30,8 @@ END $$;
 INSERT INTO internal_route.route
   (route_id,description_i18n,starts_from_scheduled_stop_point_id,ends_at_scheduled_stop_point_id,on_line_id,validity_start,validity_end,priority,label,direction)
 VALUES
-	('1ae0b5a9-e94f-4dd1-8dea-a7315e639b2a'::uuid,'Reitti A - B','e3528755-711f-4e4f-9461-7931a2c4bc6d'::uuid,'f8eace87-7901-4438-bfee-bb6f24f1c4c4'::uuid,'faa23d33-8a0f-4a9c-aa35-b9e92fd4167c'::uuid,'2021-01-01','2023-12-13',10,'66x','outbound')
+	('1ae0b5a9-e94f-4dd1-8dea-a7315e639b2a'::uuid,'Reitti A - B','e3528755-711f-4e4f-9461-7931a2c4bc6d'::uuid,'f8eace87-7901-4438-bfee-bb6f24f1c4c4'::uuid,'faa23d33-8a0f-4a9c-aa35-b9e92fd4167c'::uuid,'2021-01-01','2023-12-13',10,'66x','outbound'),
+  ('a00b3950-38fe-4052-9c20-59c1616fc5a5'::uuid,'Reitti C - D','e3528755-711f-4e4f-9461-7931a2c4bc6d'::uuid,'f8eace87-7901-4438-bfee-bb6f24f1c4c4'::uuid,'bbd1cb29-74c3-4fa1-ac86-918d7fa96fe2'::uuid,'2021-01-01','2023-12-13',10,'785K1','outbound')
 ON CONFLICT DO NOTHING;
 
 INSERT INTO route.infrastructure_link_along_route
@@ -38,18 +39,24 @@ INSERT INTO route.infrastructure_link_along_route
 VALUES
   ('1ae0b5a9-e94f-4dd1-8dea-a7315e639b2a'::uuid,'c63b749f-5060-4710-8b07-ec9ac017cb5f'::uuid,0,true),
   ('1ae0b5a9-e94f-4dd1-8dea-a7315e639b2a'::uuid,'2feba2ae-c7af-4034-a299-9e592e67358f'::uuid,1,true),
-  ('1ae0b5a9-e94f-4dd1-8dea-a7315e639b2a'::uuid,'d3ed9fcf-d1fa-419a-a279-7ad3ffe47714'::uuid,2,true)
+  ('1ae0b5a9-e94f-4dd1-8dea-a7315e639b2a'::uuid,'d3ed9fcf-d1fa-419a-a279-7ad3ffe47714'::uuid,2,true),
+  ('a00b3950-38fe-4052-9c20-59c1616fc5a5'::uuid,'c63b749f-5060-4710-8b07-ec9ac017cb5f'::uuid,0,true),
+  ('a00b3950-38fe-4052-9c20-59c1616fc5a5'::uuid,'2feba2ae-c7af-4034-a299-9e592e67358f'::uuid,1,true),
+  ('a00b3950-38fe-4052-9c20-59c1616fc5a5'::uuid,'d3ed9fcf-d1fa-419a-a279-7ad3ffe47714'::uuid,2,true)
 ON CONFLICT DO NOTHING;
 
 INSERT INTO journey_pattern.journey_pattern
   (journey_pattern_id, on_route_id)
 VALUES
-  ('9ab1b515-07dc-4755-8556-403de0f924d0','1ae0b5a9-e94f-4dd1-8dea-a7315e639b2a')
+  ('9ab1b515-07dc-4755-8556-403de0f924d0','1ae0b5a9-e94f-4dd1-8dea-a7315e639b2a'),
+  ('a471ea8b-75ba-4ac1-a4ba-6050df79e62d','a00b3950-38fe-4052-9c20-59c1616fc5a5')
 ON CONFLICT DO NOTHING;
 
 INSERT INTO journey_pattern.scheduled_stop_point_in_journey_pattern
   (journey_pattern_id, scheduled_stop_point_id, scheduled_stop_point_sequence, is_timing_point, is_via_point)
 VALUES
   ('9ab1b515-07dc-4755-8556-403de0f924d0','e3528755-711f-4e4f-9461-7931a2c4bc6d', 0, FALSE, FALSE),
-  ('9ab1b515-07dc-4755-8556-403de0f924d0','f8eace87-7901-4438-bfee-bb6f24f1c4c4', 1, FALSE, FALSE)
+  ('9ab1b515-07dc-4755-8556-403de0f924d0','f8eace87-7901-4438-bfee-bb6f24f1c4c4', 1, FALSE, FALSE),
+  ('a471ea8b-75ba-4ac1-a4ba-6050df79e62d','e3528755-711f-4e4f-9461-7931a2c4bc6d', 0, FALSE, FALSE),
+  ('a471ea8b-75ba-4ac1-a4ba-6050df79e62d','f8eace87-7901-4438-bfee-bb6f24f1c4c4', 1, FALSE, FALSE)
 ON CONFLICT DO NOTHING;

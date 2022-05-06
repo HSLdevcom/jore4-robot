@@ -33,3 +33,10 @@ as a user i want to edit line details
     given user edits line
     then edited line should be saved in db
     [Teardown]    remove line from hasura    ${NEW_LINE_LABEL}
+
+as a user i want to edit route details
+    [Tags]    route    route edit
+    [Setup]   setup route edit
+    given user edits route
+    then edited route should be saved in db
+    [Teardown]    remove route from hasura    ${NEW_ROUTE_LABEL}

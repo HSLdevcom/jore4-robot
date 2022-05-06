@@ -111,3 +111,15 @@ user edits line
     Click                 ${StandardPriority}
     set validity period   ${VALIDITY_START_DATE}   ${VALIDITY_END_DATE}
     Click                 ${NewLineSaveButton}
+
+user edits route
+    Click                 ${RoutesAndLinesHeader}
+    Click                 //*[text()='${LineNameValue}']
+    Click                 ${EditRouteButton}
+    Fill Text             ${RouteLabelInput}      ${NEW_ROUTE_LABEL}
+    Fill Text             ${RouteNameInput}    ${NEW_ROUTE_NAME}
+    Click                 ${RouteDirectionInput}
+    Click                 ${Direction2Option}
+    Click                 ${StandardPriority}
+    set validity period   ${VALIDITY_START_DATE}   ${VALIDITY_END_DATE}
+    Click                 ${NewLineSaveButton}
