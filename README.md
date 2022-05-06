@@ -12,11 +12,16 @@ Start up all the microservices using `start_env.sh`. This downloads the latest w
 Tests can be run on local machine with `run_tests.sh` script. Running it requires that you have docker installed on your computer, since the tests are run in a docker container. You also need to edit the placeholder variables for username and password in the `run_tests.sh`file, these can be found from the hsl-jore4-common key-vault as secrets.
 In addition the script takes three parameters:
 
-1. environment you want to test against (`localhost`, if you are running the services on your machine and `dev` or `test` for dev/test.jore.hsl.fi)
+1. environment you want to test against
+   1. `localhost` for Linux localhost environment (where UI is running on `http://localhost:3300`)
+   2. `localmac` for MacOS localhost environment (where UI is running on `http://localhost:3300`)
+   3. `dev` for running against `dev.jore.hsl.fi`
+   4. `test` for running against `test.jore.hsl.fi`
 2. Browser you want to test with (possible browsers `chromium`, `firefox`, `webkit`)
 3. (optional) the tag of the tests that should be run (`"*"`, `smoke`)
 
 Examples:
+- `sh run_tests.sh localmac chromium`
 - `sh run_tests.sh localhost chromium`
 - `sh run_tests.sh dev webkit`
 - `sh run_tests.sh localhost firefox "*"`
