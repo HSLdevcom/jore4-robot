@@ -1,7 +1,8 @@
 version: "3.8"
 services:
   jore4-ui:
-    # image: "hsldevcom/jore4-ui:latest"
+    # should aim to develop tests against the latest version of the UI instead of the e2e bundle
+    image: "hsldevcom/jore4-ui:latest"
 
   jore4-hasura:
     environment:
