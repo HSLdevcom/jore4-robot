@@ -27,7 +27,7 @@ stop details should be correct
 line details should be correct
     [Arguments]   ${response}
     starting date should be correct    ${response}    route_line
-    value in response is correct    ${response}   route_line    name_i18n               ${NEW_LINE_NAME}
+    value in response is correct    ${response}   route_line    name_i18n               ${{ {"fi_FI": "${NEW_LINE_NAME}"} }}
     value in response is correct    ${response}   route_line    primary_vehicle_mode    ${NEW_LINE_PRIMARY_VEHICLE_MODE}
     value in response is correct    ${response}   route_line    validity_end            ${None}
     ${priority}  Convert To Integer   10
