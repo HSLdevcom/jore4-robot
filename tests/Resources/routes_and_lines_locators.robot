@@ -5,9 +5,9 @@ ${CreateNewLineButton}       //*[@id='create-line-button']
 ${RouteLinePlusButton}       (//*[@stroke="currentColor"])[1]
 
 #new line form
-${NewLineLabelInput}         //*[@id='label-input']
-${NewLineFinnishNameInput}   //*[@id='finnish-name-input']
-${NewLineVehicleInput}       //*[@id='primary-vehicle-mode-input']
+${NewLineLabelInput}         //*[@data-testid='LinePropertiesForm:label']
+${NewLineFinnishNameInput}   //*[@data-testid='LinePropertiesForm:finnishName']
+${NewLineVehicleInput}       //*[@data-testid='primary-vehicle-mode-input']
 ${NewLineTypeInput}          //*[@data-testid='type-of-line-input']
 ${RegionalBusLineTypeOption}    //li[contains(.,'U-linja')]
 ${NewTransportTargetInput}   //*[@data-testid='transport-target-input']
