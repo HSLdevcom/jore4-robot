@@ -29,6 +29,8 @@ user adds a new bus stop
     Click    ${AddStopButton}    force=True
     user clicks on the map to create the stop
     edit new bus stop
+    # Skip response that is not stop creation
+    Wait For Response    ${HASURA_API_URL}
     validate stop creation response
 
 user clicks on the map to create the stop
