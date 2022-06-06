@@ -7,6 +7,14 @@ VALUES
   ('db748c5c-42e3-429f-baa0-e0db227dc2c8','{"fi_FI": "Erottaja - Arkkadiankatu"}','{"fi_FI": "Erottaja - Arkkadiankatu"}','bus','1234','regional_bus_service','helsinki_internal_traffic',10,'2021-01-01','2023-12-13')
 ON CONFLICT DO NOTHING;
 
+INSERT INTO internal_service_pattern.scheduled_stop_point_invariant
+    (label)
+  VALUES
+    ('H1234'),
+    ('H1235'),
+    ('H1236')
+  ON CONFLICT DO NOTHING;
+
 -- to avoid constraint conflicts, inserting scheduled_stop_points and their allowed vehicle modes at the same time, within a transaction
 DO $$
 BEGIN
@@ -28,9 +36,9 @@ BEGIN
 END $$;
 
 INSERT INTO route.route
-  (route_id,name_i18n,starts_from_scheduled_stop_point_id,ends_at_scheduled_stop_point_id,on_line_id,validity_start,validity_end,priority,label,direction)
+  (route_id,name_i18n,on_line_id,validity_start,validity_end,priority,label,direction)
 VALUES
-	('1ae0b5a9-e94f-4dd1-8dea-a7315e639b2a'::uuid,'{"fi_FI": "Reitti A - B"}','e3528755-711f-4e4f-9461-7931a2c4bc6d'::uuid,'f8eace87-7901-4438-bfee-bb6f24f1c4c4'::uuid,'faa23d33-8a0f-4a9c-aa35-b9e92fd4167c'::uuid,'2021-01-01','2023-12-13',10,'66x','outbound')
+	('1ae0b5a9-e94f-4dd1-8dea-a7315e639b2a'::uuid,'{"fi_FI": "Reitti A - B"}','faa23d33-8a0f-4a9c-aa35-b9e92fd4167c'::uuid,'2021-01-01','2023-12-13',10,'66x','outbound')
 ON CONFLICT DO NOTHING;
 
 INSERT INTO route.infrastructure_link_along_route
@@ -48,8 +56,8 @@ VALUES
 ON CONFLICT DO NOTHING;
 
 INSERT INTO journey_pattern.scheduled_stop_point_in_journey_pattern
-  (journey_pattern_id, scheduled_stop_point_id, scheduled_stop_point_sequence, is_timing_point, is_via_point)
+  (journey_pattern_id, scheduled_stop_point_label, scheduled_stop_point_sequence, is_timing_point, is_via_point)
 VALUES
-  ('9ab1b515-07dc-4755-8556-403de0f924d0','e3528755-711f-4e4f-9461-7931a2c4bc6d', 0, FALSE, FALSE),
-  ('9ab1b515-07dc-4755-8556-403de0f924d0','f8eace87-7901-4438-bfee-bb6f24f1c4c4', 1, FALSE, FALSE)
+  ('9ab1b515-07dc-4755-8556-403de0f924d0','H1234', 0, FALSE, FALSE),
+  ('9ab1b515-07dc-4755-8556-403de0f924d0','H1236', 1, FALSE, FALSE)
 ON CONFLICT DO NOTHING;
