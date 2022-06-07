@@ -32,9 +32,16 @@ runs:
       shell: bash
 
     - name: Run Robot tests in started environment
-      run: |
-        docker run --name "robot-tests" \
-          --network="host" \
-            hsldevcom/jore4-robot:${{ inputs.test_suite_version }}\
-              bash -c "robot -v ENV:${{ inputs.test_env }} -v BROWSER:${{ inputs.browser }} -v PASSWORD:${{ inputs.e2e_password }} -v EMAIL:${{ inputs.e2e_username }} --include ${{ inputs.included_tag }} --outputdir /tests/output /tests"
-      shell: bash
+      # I have checked the code of this github action and haven't found anything malicous in it. (Tamas Pallos @ 7.6.2022)
+      uses: nick-fields/retry@02a3f09f1566ff8b95fd3b7896b51296ac01e264
+      with:
+        timeout_minutes: 30
+        max_attempts: 3
+        shell: bash
+        command: |
+          docker run \
+            --rm \
+            --name "robot-tests" \
+            --network="host" \
+            hsldevcom/jore4-robot:${{ inputs.test_suite_version }} \
+            bash -c "robot -v ENV:${{ inputs.test_env }} -v BROWSER:${{ inputs.browser }} -v PASSWORD:${{ inputs.e2e_password }} -v EMAIL:${{ inputs.e2e_username }} --include ${{ inputs.included_tag }} --outputdir /tests/output /tests"
