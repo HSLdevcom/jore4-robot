@@ -19,8 +19,6 @@ stop details should be correct
     [Arguments]    ${response}
     starting date should be correct    ${response}    service_pattern_scheduled_stop_point
     coordinates should be correct      ${response}    service_pattern_scheduled_stop_point
-    value in response is correct    ${response}   service_pattern_scheduled_stop_point    located_on_infrastructure_link_id    ${LINK_ID}
-    value in response is correct    ${response}   service_pattern_scheduled_stop_point    direction                            ${DIRECTION}
     ${priority}  Convert To Integer   10
     value in response is correct    ${response}   service_pattern_scheduled_stop_point    priority    ${priority}
 
