@@ -1,15 +1,10 @@
 name: "Upload test results as artifacts"
-description: "Copies test results from docker container and then uploads them as artifacts"
+description:
+  "Copies test results from docker container and then uploads them as artifacts"
 
 runs:
   using: "composite"
   steps:
     - name: Retrieve test results from docker container
-      run: docker cp robot-tests:/tests/output/. ${{ github.workspace }}/reports/
+      run: echo this action is deprecated
       shell: bash
-
-    - name: Expose test results as an artifact
-      uses: actions/upload-artifact@v1
-      with:
-        name: reports
-        path: ${{ github.workspace }}/reports
