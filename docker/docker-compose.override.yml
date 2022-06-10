@@ -7,6 +7,11 @@ services:
   jore4-hasura:
     environment:
       HASURA_GRAPHQL_ENABLE_CONSOLE: "true"
+    # Waiting for database to be ready to avoid startup delay due to hasura crashing at startup if db is offline
+    # Note: this should only be done in development setups as Kubernetes does not allow waiting for services to be ready
+    depends_on:
+      jore4-testdb:
+        condition: service_healthy
 
   #jore4-mapmatching: { image: "hsldevcom/jore4-map-matching:latest" },
   #jore4-auth: { image: "hsldevcom/jore4-auth:latest" },
