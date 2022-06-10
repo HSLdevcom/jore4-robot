@@ -28,10 +28,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Create folder for reports
-      run: mkdir -p ${{ github.workspace }}/reports
-      shell: bash
-
     - name: Run Robot tests in started environment
       # I have checked the code of this github action and haven't found anything malicous in it. (Tamas Pallos @ 7.6.2022)
       uses: nick-fields/retry@02a3f09f1566ff8b95fd3b7896b51296ac01e264
@@ -40,8 +36,21 @@ runs:
         max_attempts: 3
         shell: bash
         command: |
+          # Get current date as a postfix for individual runs
+          CURRENT_DATE=$(date +%s)
+
+          # Create folder for reports
+          mkdir -p "${{ github.workspace }}/reports/${CURRENT_DATE}"
+
+          # Run tests
           docker run \
             --name "robot-tests" \
             --network="host" \
             hsldevcom/jore4-robot:${{ inputs.test_suite_version }} \
             bash -c "robot -v ENV:${{ inputs.test_env }} -v BROWSER:${{ inputs.browser }} -v PASSWORD:${{ inputs.e2e_password }} -v EMAIL:${{ inputs.e2e_username }} --include ${{ inputs.included_tag }} --outputdir /tests/output /tests"
+
+          # Retrieve test results from docker container to the reports folder
+          docker cp robot-tests:/tests/output/. "${{ github.workspace }}/reports/${CURRENT_DATE}/"
+
+          # Cleanup test container
+          docker rm --force robot-tests

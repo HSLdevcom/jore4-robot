@@ -5,35 +5,51 @@ on:
   workflow_dispatch:
     inputs:
       ui_version:
-        description: Version of ui to use (docker image tag). Leave empty for default version.
+        description:
+          Version of ui to use (docker image tag). Leave empty for default
+          version.
         required: false
         default: ""
       hasura_version:
-        description: Version of hasura to use (docker image tag). Leave empty for default version.
+        description:
+          Version of hasura to use (docker image tag). Leave empty for default
+          version.
         required: false
         default: ""
       auth_version:
-        description: Version of auth to use (docker image tag). Leave empty for default version.
+        description:
+          Version of auth to use (docker image tag). Leave empty for default
+          version.
         required: false
         default: ""
       mbtiles_version:
-        description: Version of mbtiles server to use (docker image tag). Leave empty for default version.
+        description:
+          Version of mbtiles server to use (docker image tag). Leave empty for
+          default version.
         required: false
         default: ""
       jore3importer_version:
-        description: Version of jore3importer to use (docker image tag). Leave empty for default version.
+        description:
+          Version of jore3importer to use (docker image tag). Leave empty for
+          default version.
         required: false
         default: ""
       testdb_version:
-        description: Version of testdb to use (docker image tag). Leave empty for default version.
+        description:
+          Version of testdb to use (docker image tag). Leave empty for default
+          version.
         required: false
         default: ""
       mssqltestdb_version:
-        description: Version of mssqltestdb to use (docker image tag). Leave empty for default version.
+        description:
+          Version of mssqltestdb to use (docker image tag). Leave empty for
+          default version.
         required: false
         default: ""
       mapmatching_version:
-        description: Version of map matching service to use (docker image tag). Leave empty for default version.
+        description:
+          Version of map matching service to use (docker image tag). Leave empty
+          for default version.
         required: false
         default: ""
 
@@ -57,7 +73,8 @@ jobs:
           hasura_version: ${{ github.event.inputs.hasura_version }}
           auth_version: ${{ github.event.inputs.auth_version }}
           mbtiles_version: ${{ github.event.inputs.mbtiles_version }}
-          jore3importer_version: ${{ github.event.inputs.jore3importer_version }}
+          jore3importer_version:
+            ${{ github.event.inputs.jore3importer_version }}
           testdb_version: ${{ github.event.inputs.testdb_version }}
           mssqltestdb_version: ${{ github.event.inputs.mssqltestdb_version }}
           mapmatching_version: ${{ github.event.inputs.mapmatching_version }}
@@ -73,12 +90,5 @@ jobs:
         if: always()
         uses: ./github-actions/upload-results
 
-      - name: Check that reports folder contains log.html
-        run: |
-          FILE=${{ github.workspace }}/reports/log.html
-          if [ -f "$FILE" ]; then
-            echo "File $FILE exists"
-          else
-            echo "File $FILE does not exist"
-            exit 1
-          fi
+      - name: Check that reports were created
+        run: '[[ $(find . -name "log.html") ]]'
