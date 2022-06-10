@@ -72,13 +72,3 @@ jobs:
       - name: upload test results
         if: always()
         uses: ./github-actions/upload-results
-
-      - name: Check that reports folder contains log.html
-        run: |
-          FILE=${{ github.workspace }}/reports/log.html
-          if [ -f "$FILE" ]; then
-            echo "File $FILE exists"
-          else
-            echo "File $FILE does not exist"
-            exit 1
-          fi
