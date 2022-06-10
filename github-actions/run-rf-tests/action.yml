@@ -43,5 +43,6 @@ runs:
           docker run \
             --name "robot-tests" \
             --network="host" \
+            --volume "$PWD/reports":/tests/output \
             hsldevcom/jore4-robot:${{ inputs.test_suite_version }} \
             bash -c "robot -v ENV:${{ inputs.test_env }} -v BROWSER:${{ inputs.browser }} -v PASSWORD:${{ inputs.e2e_password }} -v EMAIL:${{ inputs.e2e_username }} --include ${{ inputs.included_tag }} --outputdir /tests/output /tests"
