@@ -1,5 +1,7 @@
 # JORE4 end-to-end tests
 
+**NOTE: THIS REPOSITORY AND ROBOT FRAMEWORK TESTS IN GENERAL ARE DEPRECATED IN THIS PROJECT**
+
 Tests are implemented using Robot Framework, with Browser library for front-end functionalities.
 
 ### How to run tests locally
